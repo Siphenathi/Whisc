@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<br />
+<br />
+<h2 class="text-center">Bishop Appointments</h2>
+
+<div class="scheduler_container">
+    @Html.Raw(Model.Render())
+</div>
+
+@*<script type="text/javascript">
+    function init() {
+        scheduler.attachEvent("onBeforeLightbox", function (id, mode, native_event) {
+            if (+scheduler.getEvent(id).start_date < +new Date())
+                scheduler.config.readonly_form = true;//readonly form for old events
+            else
+                scheduler.config.readonly_form = false;//regular form for others
+            return true;
+        });
+
+        scheduler.attachEvent("onBeforeDrag", function (id, mode, event) {
+            if (+scheduler.getActionData(event).date < +new Date())//forbid d'n'd in the past
+                return false;
+            return true;
+        });
+
+        var buttons = ["delete", "edit"];
+        for (var i = 0; i < buttons.length; i++) {
+            var oldAction = scheduler._click.buttons[buttons[i]];
+            scheduler._click.buttons[buttons[i]] = function (id) {//disable 'edit' and 'delete' buttons for old events
+                if (+scheduler.getEvent(id).start_date < +new Date())
+                    return;
+                else
+                    oldAction.apply(scheduler, arguments);
+            };
+        }
+
+    }
+</script>*@

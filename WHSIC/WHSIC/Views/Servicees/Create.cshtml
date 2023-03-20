@@ -1,0 +1,100 @@
+﻿@model WHSIC.Model.ServiceeViewModel
+@{
+    ViewBag.Title = "Create";
+}
+<br />
+<h2 class="text-center" style="padding-top:20px;">Provide service</h2>
+<div style="padding:10px 30px 10px 70px">
+    <div class="alert alert-info alert-dismissible text-center" role="alert" >
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Greeting!</strong> <p>
+            If the type of service you want to donate is not in the list of our service type,<br />
+            it may happen that the church is not in need of that particular service or please feel free to contact us.
+            Just go straigth to contact us page...
+        </p>
+    </div>
+</div>
+
+<div style="padding-left:30%">
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TypeID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("TypeID", (SelectList)ViewBag.m, "---Select Service Type--", new { @style = "width:279px;height:36px;" })
+                @Html.ValidationMessageFor(model => model.TypeID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Description", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Service_name, new { htmlAttributes = new { @class = "form-control",placeholder="Enter service name here" } })
+                @Html.ValidationMessageFor(model => model.Service_name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter the quantity here" } })
+                @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("I will deliver it on", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10" style="padding-left:10%">
+                <input type="submit" value="Donate" class="btn btn-primary" />
+            </div>
+        </div>
+
+        <div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    @Html.ActionLink("Back", "ChooseDonation","ExternalDonor", null, new { @class = "fa fa-arrow-circle-o-left", @style = "Font-size:30px;" })
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@if(ViewBag.feed!=null)
+{
+    <script>
+        alert("@ViewBag.feed")
+    </script>
+}
+
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+
+
+@*<div class="alert alert-success" role="alert">
+    <a href="#" class="alert-link">...</a>
+</div>
+<div class="alert alert-info" role="alert">
+    <a href="#" class="alert-link">...</a>
+</div>
+<div class="alert alert-warning" role="alert">
+    <a href="#" class="alert-link">...</a>
+</div>
+<div class="alert alert-danger" role="alert">
+    <a href="#" class="alert-link">...</a>
+</div>*@

@@ -1,0 +1,42 @@
+﻿
+@model IEnumerable<WHSIC.Data.Asset_Category>
+
+@{
+    ViewBag.Title = "List Asset Category";
+    Layout = "~/Views/Treasure/_DashBoard.cshtml";
+}
+
+<h2>List of Asset Categories</h2>
+<div class="well">
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table table-hover table-bordered table-striped">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CategoryID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CategoryID })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

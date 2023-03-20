@@ -1,0 +1,49 @@
+﻿
+@model WHSIC.Model.CodeModel
+@{
+    ViewBag.Title = "VerificationCode";
+    Layout = "~/Views/Treasure/_DashBoard.cshtml";
+}
+<h2> Add </h2>
+<div class="well">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Verification Code</h4>
+            <input type="text" name="txtemail" value="@ViewBag.email" hidden />
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            @*<input type="text" name="txtcode" value="@ViewBag.code" readonly="readonly" class="form-control" />*@
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Submit" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    }
+    @if (ViewBag.feed != null)
+    {
+        <script type="text/javascript">
+            alert("@ViewBag.feed")
+        </script>
+    }
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+</div>
+
+
+

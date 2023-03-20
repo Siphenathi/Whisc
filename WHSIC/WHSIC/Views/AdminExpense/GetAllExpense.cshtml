@@ -1,0 +1,112 @@
+﻿@using System.Security.Cryptography.X509Certificates
+@using PagedList.Mvc
+@model PagedList.IPagedList<WHSIC.Model.ExpenseViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Admin/_DashBoard.cshtml";
+}
+
+<h2 class="text-center">Expenses</h2>
+<div class="well" style="padding-bottom: 70px;" >
+<div style="padding-bottom: 70px">
+    @using (@Html.BeginForm())
+    {
+        <div class="col-md-3">
+            <table>
+                <tr class="text-center">
+                    <td>
+                        @Html.TextBox("searchTerm", null, new { id = "txtSearch", @class = "form-control", placeholder = "Enter expense name", style = "width:300px" })
+                    </td>
+                    <td>
+                        <input type="submit" value="Search" class="btn btn-default" style="height: 37px" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    }
+</div>
+
+<p>
+    @Html.ActionLink("Add New", "AddExpense")
+</p>
+    <table class="table table-bordered table-hover table-striped">
+        <tr>
+            <th>
+                Description
+            </th>
+            <th>
+                Payment due Date
+            </th>
+            <th>
+                Account Number
+            </th>
+            <th>
+                Account Paid from
+            </th>
+            <th>
+                Amount
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            string ddate = "";
+            if (Convert.ToInt16(item.payment_due_date) == 01)
+            {
+                ddate = item.payment_due_date + "st";
+            }
+            else if (Convert.ToInt16(item.payment_due_date) == 02)
+            {
+                ddate = item.payment_due_date + "nd";
+            }
+            else if (Convert.ToInt16(item.payment_due_date) == 03)
+            {
+                ddate = item.payment_due_date + "rd";
+            }
+            else
+            {
+                ddate = item.payment_due_date + "th";
+            }
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.desc)
+                </td>
+                <td>
+                    @ddate of the Month
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.exp_acc_no)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.from_acc_no)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.amount)
+                </td>
+                <td>
+                    @Html.ActionLink("Update", "UpdateExpense", new {id = item.exp_id}) |
+                    @Html.ActionLink("Details", "Details", new {id = item.exp_id}) |
+                    @Html.ActionLink("Delete", "DeleteExpense", new {id = item.exp_id})
+                </td>
+            </tr>
+        }
+    </table>
+    <div class="col-sm-10">
+        <div class="text-center">
+            @Html.PagedListPager(Model, page => Url.Action("GetAllExpense", new { page, pageSize = Model.PageSize }))
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <link href="~/Search_Jquery/AutoComplete/jquery-ui.css" rel="stylesheet" />
+    <script src="~/Search_Jquery/AutoComplete/jquery-ui.js"></script>
+
+    <script type="text/javascript">
+        $(function() {
+            $("#txtSearch").autocomplete({
+                source: '@Url.Action("GetExpense")'
+            });
+        });
+    </script>
+}

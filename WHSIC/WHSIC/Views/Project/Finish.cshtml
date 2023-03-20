@@ -1,0 +1,195 @@
+﻿@using WHSIC.Model;
+@using WHSIC.BusinessLogic;
+@{
+    ViewBag.Title = "Finish";
+    Layout = "~/Views/Secretary/_DashBoard.cshtml";
+
+    ProjectBusiness pb = new ProjectBusiness();
+    ProjectInvoicesBusiness pib = new ProjectInvoicesBusiness();
+    ProjectConstructorsBusiness pcb = new ProjectConstructorsBusiness();
+    List<ProjectViewModel> project = (from p in pb.GetAllProjects() where p.ProjectID== Convert.ToInt32(ViewBag.proj) select p).ToList();
+    List<ProjectConstructorViewModel>constructors = (from c in pcb.GetAllProjectonstructors() where c.ProjectID== project[0].ProjectID select c).ToList();
+    List<ProjectInvoiceViewModel> Invoice = (from i in pib.GetAllProjectInvoices() where i.ProjectID == project[0].ProjectID select i).ToList();
+    int count = Invoice.Count();
+}
+<h2 class="text-center">Confirm</h2> 
+<div class="well">
+
+<div class="row text-center" style="align-content:center;padding-left:20%">
+    <div class="col-md-2" style="border: solid;">
+        <a href="#">
+            <i class="fa fa-check" style="font-size:127px;color: #2ECC71">
+
+            </i>
+        </a>
+    </div>
+    <div class="col-md-2" style="border:solid;">
+        <a href="#">
+            <i class="fa fa-check" style="font-size:127px;color: #2ECC71">
+
+            </i>
+        </a>
+    </div>
+    <div class="col-md-2" style="border:solid;">
+        <a href="#">
+            <i class="fa fa-check" style="font-size:127px;color: #2ECC71">
+
+            </i>
+        </a>
+    </div>
+    <div class="col-md-2" style="border:5px solid;border-color:#00C6D7">
+        <a href="#">
+            <i class="fa fa-thumbs-up" style="font-size:127px;color: #052963">
+
+            </i>
+        </a>
+    </div>
+</div>
+<div>
+    <h3>Project Details</h3>
+    <hr />
+    <table class="table table-bordered table-hover table-striped">
+        <tr>
+
+            <th>
+                Project Manager
+            </th>
+            <th>
+                Project Name
+            </th>
+            <th>
+                 Description
+            </th>
+            <th>
+                Start Date
+            </th>
+            <th>
+                Duration
+            </th>
+            <th>
+                @Html.DisplayName("End Date")
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                Contact
+            </th>
+            <th>Amount</th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in project)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Project_Manager)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProjectName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Project_Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Duration) &nbsp; @Html.DisplayFor(modelItem => item.DurationFormat)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhysicalAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Contact)
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.Amount)</td>
+                <td>
+                    @Html.ActionLink("Edit", "EditProject", new { id = item.ProjectID })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+<div>
+    <h3>Constructors Details</h3>
+    <hr />
+    <table class="table table-bordered table-hover table-striped">
+        <tr>
+
+            <th>
+                Constructor Name
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Contact
+            </th>
+            <th>
+                Address
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in constructors)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Constructor_Name)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Contact)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ProjectID })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+
+    <div>
+        <hr />
+        <h2 class="text-center">Invoice(s)</h2>
+        @if (count == 0)
+        {
+         <h3 style="color:#052963">There are no Receipts uploaded for this Project..!</h3>
+        }
+        <table class="table table-hover table-bordered table-striped" >
+            <tr>
+                <td>
+                    Invoice
+                </td>
+                <td>Amount</td>
+            </tr>
+            @foreach (var item in Invoice)
+            {
+                <tr>
+                    <td>@Html.ActionLink("View Contract", "Showfile", "ProjectInvoice", new { id = item.InvoiceID }, new { target = "_blank" })</td>
+                    <td>@item.Amount.ToString("R00.00")</td>
+                </tr>
+            }
+        </table>
+        <div class="text-center">
+            @Html.ActionLink("Done", "GetAllProject", null, new { @class = "btn btn-primary fa fa-check-square-o",@style = "Font-size:30px;" })
+        </div>
+    </div>
+</div>

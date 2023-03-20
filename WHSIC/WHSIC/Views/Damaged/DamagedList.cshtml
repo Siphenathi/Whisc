@@ -1,0 +1,73 @@
+﻿@model IEnumerable<WHSIC.Data.Damaged_Asset>
+@{
+    ViewBag.Title = "DamagedList";
+    Layout = "~/Views/Treasure/_DashBoard.cshtml";
+}
+<h2>Damaged Asset List</h2>
+<div class="well">
+    <p>
+        @Html.ActionLink("Create New", "AddDamaged")
+    </p>
+    <table class="table table-hover table-bordered table-striped">
+        <tr>
+            <th>
+                @Html.DisplayName("Supplier")
+            </th>
+            <th>
+                @Html.DisplayName("Renter")
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Assets.AName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PayDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quotation)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Assets.Suppliers.name
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Asset_Renter.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Assets.AName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @item.Amount.ToString("R00.00")
+                </td>
+                <td>
+                    @item.PayDate.ToShortDateString()
+                </td>
+                <td>
+                    @Html.ActionLink("View Quotation", "ShowQuotation", new { id = item.Damaged_ID }, new { target = "_blank" })
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditDamaged", new { id = item.Damaged_ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Damaged_ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Damaged_ID })
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+
+
+

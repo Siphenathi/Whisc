@@ -1,0 +1,32 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<WHSIC.Model.NotificationViewModel>
+@{
+    ViewBag.Title = "AllNotifications";
+    Layout = "~/Views/Admin/_DashBoard.cshtml";
+}
+
+<h2>All Notifications</h2>
+<table class="table table-bordered table">
+
+    @foreach (var item in Model)
+    {
+        string date = item.DateTime.ToShortDateString();
+        string time = item.DateTime.ToShortTimeString();
+        <tr>
+            <td>
+            <div style="max-width: 70%">@Html.DisplayFor(modelItem => item.Text)</div>
+                <br />
+                <strong style="color: #c0c0c0">on @date &nbsp; at @time</strong>
+            </td>
+        </tr>
+    }
+       <tr>
+         <td>
+            <div class="col-sm-10">
+                <div class="center">
+                    @Html.PagedListPager(Model, page => Url.Action("AllNotifications", new { page, pageSize = Model.PageSize }))
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>

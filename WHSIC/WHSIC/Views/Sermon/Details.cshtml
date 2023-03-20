@@ -1,0 +1,65 @@
+﻿@model WHSIC.Model.SermonViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Admin/_DashBoard.cshtml";
+}
+<div >
+    <h2 style="color:white">Details</h2>
+
+    <div>
+        <h2 style="color:white">Sermons</h2>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt style="color:white">
+                @Html.DisplayNameFor(model => model.pastorName)
+            </dt>
+
+            <dd style="color:white">
+                @Html.DisplayFor(model => model.pastorName)
+            </dd>
+            <dt style="color:white">
+                @Html.DisplayNameFor(model => model.BranchName)
+            </dt>
+
+            <dd style="color:white">
+                @Html.DisplayFor(model => model.BranchName)
+            </dd>
+
+            <dt style="color:white">
+                @Html.DisplayNameFor(model => model.Date)
+            </dt>
+
+            <dd style="color:white">
+                @Html.DisplayFor(model => model.Date)
+            </dd>
+
+            <dt style="color:white">
+                @Html.DisplayNameFor(model => model.content)
+            </dt>
+
+            <dd style="color:white">
+                @Html.DisplayFor(model => model.content)
+            </dd>
+            <dt style="color:white">
+                @Html.DisplayNameFor(model => model.StartTime)
+            </dt>
+
+            <dd style="color:white">
+                @Html.DisplayFor(model => model.StartTime)
+            </dd>
+            <dt style="color:white">
+                @Html.DisplayNameFor(model => model.EndTime)
+            </dt>
+
+            <dd style="color:white">
+                @Html.DisplayFor(model => model.EndTime)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+    </div>

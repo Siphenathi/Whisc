@@ -1,0 +1,60 @@
+﻿@model WHSIC.Model.RolesViewModel
+
+@{
+    ViewBag.Title = "AssignRoles";
+    Layout = "~/Views/Admin/_DashBoard.cshtml";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="panel panel-default">
+        <div class="panel-heading"><h2>Assign Roles</h2></div>
+        <div class="panel-body">
+            @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+            <table>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Employee, htmlAttributes: new {@class = "control-label col-md-2"})
+                    </td>
+                    <td>
+                        @Html.DropDownList("Employee", (SelectList) ViewBag.Employee, "---Select Employee--", new {@style = "width:252px;height:38px;"})
+                        @Html.ValidationMessageFor(model => model.Employee, "", new {@class = "text-danger"})
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Role, htmlAttributes: new {@class = "control-label col-md-2"})
+                    </td>
+                    <td>
+                        @Html.DropDownList("Role", (SelectList) ViewBag.Role, "---Select Role--", new {@style = "width:252px;height:38px;"})
+                        @Html.ValidationMessageFor(model => model.Role, "", new {@class = "text-danger"})
+                    </td>
+                </tr>
+            </table>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Assign" class="btn btn-default"/>
+                </div>
+            </div>
+        </div>
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    </div>
+}
+@*@if(ViewBag.feed!=null)
+{
+    <script>
+        alert("@ViewBag.feed")
+    </script>
+}*@
+<div style="color:green">
+    @ViewBag.feed
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

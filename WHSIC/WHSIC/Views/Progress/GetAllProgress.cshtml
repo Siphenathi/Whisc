@@ -1,0 +1,51 @@
+﻿@model IEnumerable<WHSIC.Model.ProjectProgressViewModel>
+@{
+    ViewBag.Title = "GetAllProgress";
+    Layout = "~/Views/Secretary/_DashBoard.cshtml";
+
+}
+<h2 class="text-center">Progress for @ViewBag.projName project</h2>
+<div class="well">
+<p>
+    @Html.ActionLink("Add Progress", "AddProgress", new { projectID= ViewBag.projeID}, new { @class= "btn btn-primary fa fa-line-chart" })
+
+    @Html.ActionLink("Project", "GetAllProject", "Project",null, new { @class = "btn btn-primary fa fa-tasks" })
+  <a href="@Url.Action("ChooseGraph", new { projectID= ViewBag.projeID})" class="glyphicon glyphicon-random" style="font-size:50px;"></a>
+</p>
+<div>
+    
+</div>
+<table class="table table-bordered table-hover table-striped">
+    <tr>
+        <th>
+            @Html.DisplayName("Record entered on")
+        </th>
+        <th>
+            @Html.DisplayName("Period")
+        </th>
+        <th>
+            @Html.DisplayName("Peroid Worked")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Duration)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PeroidWorked)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "EditProgress", new {  id= item.ProgressID }) |
+            @Html.ActionLink("Delete", "DeleteProgress", new { id=item.ProgressID })
+        </td>
+    </tr>
+}
+</table>
+    </div>
+<br />

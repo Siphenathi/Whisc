@@ -1,0 +1,30 @@
+﻿@model WHSIC.Model.GalleryViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div class="panel panel-default" style="padding-top: 50px;">
+    <div class="panel-heading" style="text-align: center;">
+        <h2>View Image</h2>
+    </div>
+
+        <div class="panel-body">
+            @Html.HiddenFor(model => model.GalleryId)
+
+                <div >
+                    <a href="#"><img src="data:image/png;base64,@Convert.ToBase64String(Model.ImageData, 0, Model.ImageData.Length)"/></a>
+                </div>
+        </div>
+    @if (User.Identity.IsAuthenticated)
+    {
+        if (User.IsInRole("Secretary"))
+        {
+            <p style="text-align: center">@Html.ActionLink("Delete this Image", "Delete", new { id = Model.GalleryId }, new { @class = "glyphicon glyphicon-trash" })</p>
+        }
+    }
+    <p style="text-align: center">
+        @Html.ActionLink("Back to Gallery", "Index")
+    </p>
+</div>

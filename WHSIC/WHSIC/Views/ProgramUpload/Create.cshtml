@@ -1,0 +1,113 @@
+﻿@model WHSIC.Model.ProgramUploadViewModel
+
+@{
+    ViewBag.Title = "Upload Programs";
+    Layout = "~/Views/Secretary/_DashBoard.cshtml";
+}
+<h2>New Upload</h2>
+<div class="well">
+ 
+
+
+    @using (Html.BeginForm("Create", "TempUpload", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.DropDownList("Name", (SelectList)ViewBag.pc, "---Select Program Name--", new { @style = "width:252px;height:38px;" })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                    @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                    @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Venue, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Venue, new { htmlAttributes = new { @placeholder = "Enter Program Venue", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Venue, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.TextAreaFor(model => model.Content, new { @class = "form-control", @placeholder = "Enter Program Content" })
+                    @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <table>
+                    <tr>
+                        <td>
+                            
+                        </td>
+
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>Browse Image</label>
+                         &nbsp;&nbsp;&nbsp;
+                            <div class="fileUpload btn btn-primary" style="background-color: #052963; color: #00C6D7">
+                                <input type="file" required="" onchange="readURL(this);" name="file" accept="image/jpg, image/png , image/jpeg" class="upload" />
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-3">
+                    <input type="submit" value="Upload" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+
+        <div style="color:green">
+            @if (ViewBag.feed != null)
+                {
+                @Html.Raw(ViewBag.feed)
+            }
+        </div>
+    }
+    </div>
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#blah')
+                        .attr('src', e.target.result)
+                        .width(200)
+                        .height(200);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

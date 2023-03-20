@@ -1,0 +1,76 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<WHSIC.Model.ProgramUploadViewModel>
+@{
+    ViewBag.Title = "List of Uploads";
+    Layout = "~/Views/Secretary/_DashBoard.cshtml";
+}
+    <h2>List of Uploads</h2>
+<div class="well">
+    @if (User.Identity.IsAuthenticated)
+    {
+        if (User.IsInRole("Secretary"))
+        {
+            <p>@Html.ActionLink("New Upload", "Create", "ProgramUpload")</p>
+        }
+    }
+
+    @using (Html.BeginForm("Index", "ProgramUpload", FormMethod.Post))
+    {
+   <div class="form-group">
+            @Html.DropDownList("Name", (SelectList)ViewBag.m, "--Search by Program Name--", new { @style = "width:230px;height:33px;" })
+            <input type="submit" value="Search" class="btn btn-primary" /><br />
+        </div>
+        <div class="form-group">
+            <div class="col-md-10 ">
+
+
+            </div>
+        </div>
+    }
+
+    <table class="table">
+
+        <tr class="module itemz">
+
+            @foreach (var item in Model)
+            {
+                <td class="outreach">
+                    <div class="imagez">
+                        <a href="@Url.Action("ViewOneP", "ProgramUpload",new {id=item.ProgramId }) "><img src="data:image/png;base64,@Convert.ToBase64String(item.Image, 0, item.Image.Length)" style="width:150px;height:150px" /></a>
+                    </div>
+
+
+                    <div class="item_infor">
+
+                        <h3>@Html.DisplayFor(itemz => item.Name)</h3>
+                        <h4>@Html.DisplayFor(x => item.Venue)</h4>
+                        <h5>@Html.DisplayFor(x => item.StartDate) - @Html.DisplayFor(x => item.EndDate)</h5>
+                        <div class="max-lines">    <p>@Html.DisplayFor(x => item.Content)</p></div>
+                    </div>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.IsInRole("Secretary"))
+                        {
+                            <div>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.ProgramId }, new { @class = "btn btn-primary" }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.ProgramId }, new { @class = "btn btn-primary" })
+                            </div>
+                        }
+                    }
+                </td>
+            }
+        </tr>
+        <tr>
+            <td>
+                <div class="col-sm-10">
+                    <div class="center">
+                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, pageSize = Model.PageSize }))
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+</div>
+<br />
+<br />

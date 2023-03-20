@@ -1,0 +1,101 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<WHSIC.Model.DonationViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Admin/_DashBoard.cshtml";
+}
+<div class="well" style="padding-bottom: 70px">
+<h2 class="text-center">List of Donations</h2>
+   <hr/>
+<div style="padding-bottom: 70px">
+    @using (@Html.BeginForm())
+    {
+        <div class="col-md-3">
+            <table>
+                <tr>
+                    <td>
+                        @Html.TextBox("searchTerm", null, new { id = "txtSearch", @class = "form-control", placeholder = "Enter Donor Name", style = "width:300px" })
+                    </td>
+                    <td>
+                        <input type="submit" value="Search" class="btn btn-default" style="height: 37px" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    }
+</div>
+<p>
+    @Html.ActionLink("Create New", "CreateDonation")
+</p>
+    <table class="table table-bordered table-hover table-striped">
+        <tr>
+
+            <th>
+                Donor
+            </th>
+            <th>
+                Donor type
+            </th>
+            <th>
+                Donation Type
+            </th>
+            <th>
+                Payment Method
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                Amount
+            </th>
+          
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Donor_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DonorDesc)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Payment_Method)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                @*<td>
+                    @Html.ActionLink("Delete", "", new { id = item.DonationID })
+                </td>*@
+            </tr>
+        }
+    </table>
+            <div class="col-sm-10">
+                <div class="text-center">
+                    @Html.PagedListPager(Model, page => Url.Action("GetAllDonations", new { page, pageSize = Model.PageSize }))
+                </div>
+            </div>
+ </div>
+@section Scripts {
+    <link href="~/Search_Jquery/AutoComplete/jquery-ui.css" rel="stylesheet" />
+    <script src="~/Search_Jquery/AutoComplete/jquery-ui.js"></script>
+
+    <script type="text/javascript">
+        $(function() {
+            $("#txtSearch").autocomplete({
+                source: '@Url.Action("GetDonations")'
+            });
+        });
+    </script>
+}
+
+

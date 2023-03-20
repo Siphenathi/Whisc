@@ -1,0 +1,63 @@
+﻿@model WHSIC.Model.Asset_CategoryViewModel
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Treasure/_DashBoard.cshtml";
+}
+
+<h2>Add</h2>
+<div class="well">
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Asset Category</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.Label("Category Name", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.CName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.DropDownList("Type", new List<SelectListItem>
+               {
+                    new SelectListItem {Text="Fixed",Value="Fixed"},
+                    new SelectListItem{Text="Non-Fixed",Value="Non-Fixed"}
+
+               }, "Select asset type", new { @style = "width:262px;height:38px;" })
+                    @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-3">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+    @if (ViewBag.feed != null)
+    {
+        <script type="text/javascript">
+            alert("@ViewBag.feed")
+        </script>
+    }
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+</div>
+
+
+
+

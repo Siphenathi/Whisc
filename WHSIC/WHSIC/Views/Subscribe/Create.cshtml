@@ -1,0 +1,55 @@
+﻿@model WHSIC.Data.Subscibers
+@{
+    ViewBag.Title = "Create";
+
+}
+<br />
+<br />
+    <h2 class="text-center">Vacancies</h2>
+    <h3 style="color:red" class="text-center"><b>No Jobs at the moment, enter your email below if you want us to let you know if there are any jobs</b></h3>
+    <h4 style="color:red" class="text-center">if you have subscribed already, don't subscribe again, whenever we have new jobs we will notify you</h4>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            
+            <hr />
+            @Html.ValidationSummary(true)
+            <div class="form-group" style="padding-left:25%">
+                @Html.LabelFor(model => model.UserName, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group" style="padding-left:25%">
+                @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                   @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                   @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group" style="padding-left:25%">
+                @Html.LabelFor(model => model.ConfirmSubscriberEmail, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ConfirmSubscriberEmail, new { htmlAttributes = new { @class = "form-control" } })
+                  @Html.ValidationMessageFor(model => model.ConfirmSubscriberEmail, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group" style="padding-left:33%">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Subscribe" class="btn btn-primary btn-sm" />
+                </div>
+            </div>
+        </div>
+    }
+@if (ViewBag.feed != null)
+{
+    <script type="text/javascript">
+            alert("@ViewBag.feed")
+    </script>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

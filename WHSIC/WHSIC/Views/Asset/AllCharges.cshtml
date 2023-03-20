@@ -1,0 +1,40 @@
+﻿@model IEnumerable<WHSIC.Model.AssetChargeViewModel>
+@{
+    ViewBag.Title = "AllCharges";
+    Layout = "~/Views/Treasure/_DashBoard.cshtml";
+}
+
+<h2>AllCharges</h2>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AssetName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rental_Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PenaltyRate)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        int per = Convert.ToInt32(item.PenaltyRate);
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AssetName)
+            </td>
+            <td>
+                @item.Rental_Amount.ToString("R00.00")
+            </td>
+            <td>
+                @per%
+            </td>
+        </tr>
+    }
+</table>
+<p>
+    @Html.ActionLink("Back", "RentalAssets")
+</p>
+

@@ -1,0 +1,120 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<WHSIC.Model.ProgramViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Secretary/_DashBoard.cshtml";
+}
+<div class="well">
+    <h2>List of Programs</h2>
+
+    <div style="padding-bottom: 70px">
+        @using (@Html.BeginForm())
+        {
+            <div class="col-md-3">
+                <table>
+                    <tr>
+                        <td>
+                            @Html.TextBox("searchTerm", null, new {id = "txtSearch", @class = "form-control", placeholder = "Enter Program Name", style = "width:300px"})
+                        </td>
+                        <td>
+                            <input type="submit" value="Search" class="btn btn-default" style="height: 37px"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        }
+    </div>
+
+    <p>
+        @if (User.Identity.IsAuthenticated)
+        {
+            if (User.IsInRole("Secretary"))
+            {
+                @Html.ActionLink("Add New Program", "Create", "Program")
+            }
+        }
+
+    </p>
+    <table class="table table-bordered table-hover table-striped">
+        <tr>
+            <th>
+                Program Name
+            </th>
+            <th>
+                Frequence
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                Venue
+            </th>
+            <th></th>
+            @if (User.Identity.IsAuthenticated)
+            {
+                if (User.IsInRole("Secretary"))
+                {
+                    <th></th>
+                }
+            }
+        </
+        tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Frequence)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Venue)
+                </td>
+
+                @if (User.Identity.IsAuthenticated)
+
+                {
+                    if (User.IsInRole("Secretary"))
+                    {
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new {id = item.PId}, new {@class = "btn btn-default"}) |
+                            @Html.ActionLink("Delete", "Delete", new {id = item.PId}, new {@class = "glyphicon glyphicon-trash"})
+                        </td>
+                    }
+                }
+                <td>
+                    @Html.ActionLink("Details", "Details", new {id = item.PId})
+                </td>
+            </tr>
+        }
+        <tr>
+            <td>
+                <div class="col-sm-10">
+                    <div class="center">
+                        @Html.PagedListPager(Model, page => Url.Action("Index", new {page, pageSize = Model.PageSize}))
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+@section Scripts {
+    <link href="~/Search_Jquery/AutoComplete/jquery-ui.css" rel="stylesheet" />
+    <script src="~/Search_Jquery/AutoComplete/jquery-ui.js"></script>
+
+    <script type="text/javascript">
+        $(function() {
+            $("#txtSearch").autocomplete({
+                source: '@Url.Action("GetEmployees")'
+            });
+        });
+    </script>
+}
+

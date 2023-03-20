@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Secretary/_DashBoard.cshtml";
+}
+
+<br />
+<br />
+<div class="panel panel-default">
+    <div class="panel-heading" style="text-align: center">
+        <h2 >Upload Image to Gallery</h2>
+    </div>
+    <div class="panel-body">
+        @using (Html.BeginForm("Create", "Gallery", FormMethod.Post, new {enctype = "multipart/form-data", @class = "form-horizontal", role = "form"}))
+        {
+
+            <div class="form-horizontal">
+                <div class="form-group">
+
+                    <div class="text-center">
+                        <label><strong>Browse Image</strong></label>
+                        <div class="fileUpload btn btn-primary" style="background-color: #052963; color: #00C6D7">
+                            <input type="file" required="" onchange="readURL(this);" name="File" accept="image/gif, image/jpeg, image/png" class="upload"/>
+                        </div>
+
+                        <div class="col-md-10">
+                            <img id="blah" src="#" alt=""/>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="text-center">
+                        <input type="submit" value="Upload" class="btn btn-default"/>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@if (ViewBag.feed != null)
+{
+    <script>
+        alert("@ViewBag.feed")
+    </script>
+}
+        <script>
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#blah')
+                            .attr('src', e.target.result)
+                            .width(200)
+                            .height(200);
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+        </script>

@@ -1,0 +1,69 @@
+﻿@model IEnumerable<WHSIC.Data.Job>
+
+@{
+    ViewBag.Title = "JobView";
+}
+
+
+<h3 class="text-center"><b style="color:red">Current Job Openings</b>(@ViewBag.JobsAvaillable)</h3>
+<div>
+    <h4>Jobs Available</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        @foreach (var item in Model)
+        {
+            <h3 class="tex" style="color:blue">=============================================================================================</h3>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Position) &nbsp; &nbsp; &nbsp;:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(modelItem => item.Position)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Requirements) &nbsp; &nbsp; &nbsp;:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(modelItem => item.Requirements)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Duties) &nbsp; &nbsp; &nbsp;:
+
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(modelItem => item.Duties)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ClosingDate) &nbsp; &nbsp; &nbsp;:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(modelItem => item.ClosingDate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Salary) &nbsp; &nbsp; &nbsp;:
+            </dt>
+            <dd>
+                @Html.DisplayFor(modelItem => item.Salary)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.PositionStatus) &nbsp; &nbsp; &nbsp;:
+            </dt>
+            <dd>
+                @Html.DisplayFor(modelItem => item.PositionStatus)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ApplyingInfo) &nbsp; &nbsp; &nbsp;:
+            </dt>
+            <dd>
+                @Html.DisplayNameFor(model => model.ApplyingInfo)
+            </dd>
+
+        }
+    </dl>
+</div>

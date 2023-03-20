@@ -1,0 +1,134 @@
+﻿@using WHSIC.Model;
+@using WHSIC.BusinessLogic;
+@{
+    ViewBag.Title = "LineGraph";
+    Layout = "~/Views/Secretary/_DashBoard.cshtml";
+
+    ProjectBusiness pb = new ProjectBusiness();
+    ProjectProgressBusiness ppb = new ProjectProgressBusiness();
+    ProjectViewModel proj = pb.GetAllProjects().Find(x => x.ProjectID == ViewBag.proj);
+
+    double m1 = 0, m2 = 0, m3 = 0, m4 = 0;
+    string Textm1 = "Week 1", Textm2 = "Week 2", Textm3 = "Week 3", Textm4 = "Week 4";
+
+    double max_duration = 0;
+    max_duration = proj.Duration;
+
+    double Estimatedm1 = (1 / max_duration) * 100;
+    double Estimatedm2 = Estimatedm1 * 2;
+    double Estimatedm3 = Estimatedm2 + Estimatedm1;
+    double Estimatedm4 = Estimatedm3 + Estimatedm1;
+
+
+    List<ProjectProgressViewModel> track = (from p in ppb.GetAllProjectProgresses() where p.ProjectID == proj.ProjectID select p).ToList();
+
+
+    for (int x = 0; x < track.Count(); x++)
+    {
+        int Feb_days = DateTime.DaysInMonth(track[x].Date.Year, 2);
+        if (x == 0)
+        {
+            m1 = (((1 / max_duration) / 6) * track[x].PeroidWorked) * 100;
+            Textm1 = track[x].Duration;
+        }
+        else if (x == 1)
+        {
+            m2 = m1 + (((1 / max_duration) / 6) * track[x].PeroidWorked) * 100;
+            Textm2 = track[x].Duration;
+        }
+        else if (x == 2)
+        {
+            m3 = m2 + (((1 / max_duration) / 6) * track[x].PeroidWorked) * 100;
+            Textm3 = track[x].Duration;
+        }
+        else if (x == 3)
+        {
+            m4 = m3 + (((1 / max_duration) / 6) * track[x].PeroidWorked) * 100;
+            Textm4 = track[x].Duration;
+        }
+    }
+}
+<h2 class="text-center">Line Graph</h2>
+<div class="well">
+<div><a href="@Url.Action("GetAllProgress", new { projectID=ViewBag.proj })" class="fa fa-arrow-circle-o-left" style="font-size:30px;">Back</a></div>
+<div id="line_top_x" style="padding-left:10%"></div>
+</div>
+<br />
+<br />
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', { 'packages': ['line'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Weeks');
+        data.addColumn('number', 'Estimated Progress');
+        data.addColumn('number', 'Actual Progress');
+
+        if(@Convert.ToInt32(m1)!=0 &&  @Convert.ToInt32(m2)==0 && @Convert.ToInt32(m3)==0 &&  @Convert.ToInt32(m4)==0)
+        {
+            data.addRows([
+       ['@Textm1', @Convert.ToInt32(Estimatedm1), @Convert.ToInt32(m1)],
+       ['@Textm2', @Convert.ToInt32(Estimatedm2), null],
+       ['@Textm3', @Convert.ToInt32(Estimatedm3), null],
+       ['@Textm4', @Convert.ToInt32(Estimatedm4), null]
+            ]);
+        }
+        else if(@Convert.ToInt32(m1)!=0 &&  @Convert.ToInt32(m2)!=0 && @Convert.ToInt32(m3)==0 &&  @Convert.ToInt32(m4)==0)
+        {
+            data.addRows([
+         ['@Textm1', @Convert.ToInt32(Estimatedm1), @Convert.ToInt32(m1)],
+         ['@Textm2', @Convert.ToInt32(Estimatedm2), @Convert.ToInt32(m2)],
+         ['@Textm3', @Convert.ToInt32(Estimatedm3), null],
+         ['@Textm4', @Convert.ToInt32(Estimatedm4), null]
+            ]);
+        }
+        else if(@Convert.ToInt32(m1)!=0 &&  @Convert.ToInt32(m2)!=0 && @Convert.ToInt32(m3)!=0 &&  @Convert.ToInt32(m4)==0)
+        {
+            data.addRows([
+         ['@Textm1', @Convert.ToInt32(Estimatedm1), @Convert.ToInt32(m1)],
+         ['@Textm2', @Convert.ToInt32(Estimatedm2), @Convert.ToInt32(m2)],
+         ['@Textm3', @Convert.ToInt32(Estimatedm3), @Convert.ToInt32(m3)],
+         ['@Textm4', @Convert.ToInt32(Estimatedm4), null]
+            ]);
+        }
+        else if(@Convert.ToInt32(m1)!=0 &&  @Convert.ToInt32(m2)!=0 && @Convert.ToInt32(m3)!=0 &&  @Convert.ToInt32(m4)!=0)
+        {
+            data.addRows([
+         ['@Textm1', @Convert.ToInt32(Estimatedm1), @Convert.ToInt32(m1)],
+         ['@Textm2', @Convert.ToInt32(Estimatedm2), @Convert.ToInt32(m2)],
+         ['@Textm3', @Convert.ToInt32(Estimatedm3), @Convert.ToInt32(m3)],
+         ['@Textm4', @Convert.ToInt32(Estimatedm4), @Convert.ToInt32(m4)]
+            ]);
+        }
+        else{
+            data.addRows([
+         ['@Textm1', @Convert.ToInt32(Estimatedm1), null],
+         ['@Textm2', @Convert.ToInt32(Estimatedm2), null],
+         ['@Textm3', @Convert.ToInt32(Estimatedm3), null],
+         ['@Textm4', @Convert.ToInt32(Estimatedm4), null]
+            ]);
+        }
+
+            var options = {
+            chart: {
+                title: 'Project Progress Report',
+                subtitle: 'Per Week'
+            },
+            width: 1100,
+            height: 500,
+            axes: {
+                x: {
+                    0: { side: 'top' }
+                }
+            }
+        };
+
+        var chart = new google.charts.Line(document.getElementById('line_top_x'));
+
+        chart.draw(data, options);
+    }
+</script>

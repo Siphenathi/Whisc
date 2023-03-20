@@ -1,0 +1,71 @@
+﻿@model IEnumerable<WHSIC.Data.Job>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Secretary/_DashBoard.cshtml";
+}
+<h2>List of Jobs</h2>
+<div class="well">
+    <p>
+        @Html.ActionLink("Create New Post", "Create", new { @class = "btn-primary" })
+    </p>
+    <table class="table table-bordered table-hover">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Position)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.Requirements)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Duties)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.ClosingDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Salary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PositionStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ApplyingInfo)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Position)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.Requirements)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Duties)
+                </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClosingDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Salary)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PositionStatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApplyingInfo)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.JobID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.JobID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.JobID })
+                </td>
+            </tr>
+
+        }
+    </table>
+</div>
+

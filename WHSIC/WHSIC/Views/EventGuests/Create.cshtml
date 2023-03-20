@@ -1,0 +1,68 @@
+﻿@model WHSIC.Data.EventGuest
+@{
+    ViewBag.Title = "Create";
+}
+<br />
+<br />
+<h2 class="text-center"> Event Confirmation</h2>
+<div class="text-center " style="min-height:200px">
+    <h3>Hi @ViewBag.gName </h3>
+    <h4>Click Confirm If You Are Coming to @ViewBag.eName event</h4>
+    @using (Html.BeginForm())
+    {
+
+        @*<div class="form-group">
+            <div class="col-md-offset-2 col-md-10">*@
+                <input type="text" name="txtguest" value="@ViewBag.gName" hidden />
+                <input type="text" name="txtguestID" value="@ViewBag.gID" hidden />
+                <input type="text" name="txtevent" value="@ViewBag.eName" hidden />
+                <input type="text" name="txteventID" value="@ViewBag.eID" hidden />
+
+                if (@ViewBag.feedback == "You already confirmed, you can only confirm once for each event!")
+                {
+                    <div>
+                        <input type="submit" value="Confirm" class="btn btn-primary" disabled />
+                    </div>
+                }
+                if (@ViewBag.feedback != "You already confirmed, you can only confirm once for each event!")
+                {
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10" style="padding-right:20%">
+                            <input type="submit" value="Confirm" class="btn btn-primary" />
+                        </div>
+                    </div>
+                }
+            @*</div>
+        </div>*@
+    }
+
+    @*<script type="text/javascript">
+            @Html.ActionLink("Confirm", "Create", "EventGuests", new { @onclick = "return Submit();", id = "anchortag" })
+
+            function Submit()
+            {
+                if (confirm("Are you sure you want to submit?"))
+                 {
+                        document.getElementById('anchortag').href += "?isTrue=true";
+                 }
+             else
+                 {
+                        document.getElementById('anchortag').href += "?isTrue=false";
+                 }
+                    return true;
+                }
+        </script>*@
+    @if (ViewBag.feedback != null)
+    {
+        <script type="text/javascript">
+            alert("@ViewBag.feedback")
+        </script>
+    }
+</div>
+<br />
+<br />
+
+
+
+
+

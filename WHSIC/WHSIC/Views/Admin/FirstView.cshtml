@@ -1,0 +1,98 @@
+﻿@{
+    ViewBag.Title = "FirstView";
+    Layout = "~/Views/Admin/_DashBoard.cshtml";
+}
+<h2>Welcome Admin</h2>
+<div class="well">
+<div class="custom-widgets">
+    <div class="row-one">
+        <div class="col-md-3 widget">
+            <div class="stats-left" style="background-color: purple">
+                <h5>Number of</h5>
+                <h4>Employees</h4>
+            </div>
+            <div class="stats-right">
+                <label>@ViewBag.emp</label>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+        <div class="col-md-3 widget states-mdl">
+            <div class="stats-left" style="background-color: purple">
+                <h4>All Visitors</h4>
+                <h4>Today</h4>
+            </div>
+            <div class="stats-right" style="height: 120px">
+                <label>@ViewBag.all</label><br/>
+                <label>@ViewBag.today </label>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+        <div class="col-md-3 widget states-thrd">
+            <div class="stats-left" style="background-color: purple">
+                <h4>Expenses</h4>
+                <h4>Paid</h4>
+            </div>
+            <div class="stats-right" style="height: 120px">
+                <label>@ViewBag.Allexp</label><br/>
+                <label>@ViewBag.exp</label>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+        <div class="col-md-3 widget states-last">
+            <div class="stats-left" style="background-color: purple;min-width: 250px">
+                <h5>Overall Current Income</h5>
+                <h4>R @ViewBag.income</h4>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+
+        <div class="clearfix"> </div>
+    </div>
+    <br/>
+    <div class="row-one">
+        <div class="col-md-3 widget">
+            <div class="stats-left" style="background-color: purple">
+                <h5>Number of</h5>
+                <h4> Branches</h4>
+            </div>
+            <div class="stats-right">
+                <label>@ViewBag.branches</label>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+        <div class="col-md-3 widget states-mdl">
+            <div class="stats-left" style="background-color: purple">
+                <h5>Number of</h5>
+                <h4>Members</h4>
+            </div>
+            <div class="stats-right">
+                <label>@ViewBag.member</label>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+        <div class="col-md-3 widget states-thrd">
+            <div class="stats-left" style="background-color: purple">
+                <h4>Sponsors</h4>
+                <h4>Partners</h4>
+            </div>
+            <div class="stats-right" style="height: 120px">
+                <label>@ViewBag.sponsor</label><br/>
+                <label>@ViewBag.partner</label>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+        <div class="col-md-3 widget states-last">
+            <div class="stats-left" style="background-color: purple">
+                <h5>Number of</h5>
+                <h4>Pastors</h4>
+            </div>
+            <div class="stats-right">
+                <label>@ViewBag.pastor</label>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+
+        <div class="clearfix"> </div>
+    </div>
+</div>
+</div>

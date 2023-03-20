@@ -1,0 +1,49 @@
+﻿@model WHSIC.Model.Expense_PaidViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Treasure/_DashBoard.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Expense_PaidViewModel</h4>
+    <hr/>
+    @Html.HiddenFor(model => model.paid_exp_id)
+    <dl class="dl-horizontal">
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.ExpenseDesc)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ExpenseDesc)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Reference)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Reference)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.date_paid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date_paid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.amount_paid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.amount_paid)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.paid_exp_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

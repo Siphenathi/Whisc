@@ -1,0 +1,45 @@
+﻿@model IEnumerable<WHSIC.Model.ProgramUploadViewModel>
+@{
+    ViewBag.Title = "Details";
+}
+<h1></h1>
+<h3></h3>
+<div @*class="well"*@>
+    <table>
+        <tr class="module itemz">
+            @foreach (var item in Model)
+            {
+
+                if (Convert.ToInt32(ViewBag.m) == item.ProgramId)
+                {
+
+                    <td class="outreach">
+                        <div class="imagez">
+                            <a ><img src="data:image/png;base64,@Convert.ToBase64String(item.Image, 0, item.Image.Length)" width="600" height="500" /></a>
+                        </div>
+                        <div class="item_infor">
+
+                            <h3 style="color:white">@Html.DisplayFor(itemz => item.Name)</h3>
+                            <h4 style="color:white">@Html.DisplayFor(x => item.Venue)</h4>
+                            <h5 style="color:white">@Html.DisplayFor(x => item.StartDate) - @Html.DisplayFor(x => item.EndDate)</h5>
+                            <div style="color:white"><p>@Html.DisplayFor(x => item.Content)</p></div>
+                        </div>
+                    </td>
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.IsInRole("Secretary"))
+                        {
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.ProgramId }, new { @class = "btn btn-primary" }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.ProgramId }, new { @class = "btn btn-primary" })
+                            </td>
+                        }
+                    }
+                    break;
+                }
+
+            }
+        </tr>
+
+    </table>
+    </div>

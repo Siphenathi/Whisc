@@ -1,0 +1,1095 @@
+﻿@using WHSIC.Model;
+@using WHSIC.BusinessLogic;
+@{
+    ViewBag.Title = "LineGraph";
+    Layout = "~/Views/Secretary/_DashBoard.cshtml";
+
+    ProjectBusiness pb = new ProjectBusiness();
+    ProjectProgressBusiness ppb = new ProjectProgressBusiness();
+    ProjectViewModel proj = pb.GetAllProjects().Find(x => x.ProjectID == ViewBag.proj);
+
+    double m1 = 0, m2 = 0, m3 = 0, m4 = 0, m5 = 0, m6 = 0, m7 = 0, m8 = 0, m9 = 0, m10 = 0, m11 = 0, m12 = 0;
+    string Textm1 = "Month 1", Textm2 = "Month 2", Textm3 = "Month 3", Textm4 = "Month 4", Textm5 = "Month 5", Textm6 = "Month 6", Textm7 = "Month 7", Textm8 = "Month 8", Textm9 = "Month 9", Textm10 = "Month 10", Textm11 = "Month 11", Textm12 = "Month 12";
+
+    double max_duration = 0;
+    max_duration = proj.Duration;
+
+    double Estimatedm1 = (1 / max_duration) * 100;
+    double Estimatedm2 = Estimatedm1 * 2;
+    double Estimatedm3 = Estimatedm2 + Estimatedm1;
+    double Estimatedm4 = Estimatedm3 + Estimatedm1;
+    double Estimatedm5 = Estimatedm4 + Estimatedm1;
+    double Estimatedm6 = Estimatedm5 + Estimatedm1,
+    Estimatedm7 = Estimatedm6 + Estimatedm1, Estimatedm8 = Estimatedm7 + Estimatedm1, Estimatedm9 = Estimatedm8 + Estimatedm1,
+    Estimatedm10 = Estimatedm9 + Estimatedm1, Estimatedm11 = Estimatedm10 + Estimatedm1, Estimatedm12 = Estimatedm11 + Estimatedm1;
+
+    List<ProjectProgressViewModel> track = (from p in ppb.GetAllProjectProgresses() where p.ProjectID == proj.ProjectID select p).ToList();
+
+    for (int x = 0; x < track.Count(); x++)
+    {
+
+        int Feb_days = DateTime.DaysInMonth(track[x].Date.Year, 2);
+        if (x == 0)
+        {
+            if (track[x].Duration == "January")
+            {
+                m1 = (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+                Textm1 = track[x].Duration;
+            }
+            else if (track[x].Duration == "February")
+            {
+                m1 = (((1 / max_duration) / Feb_days) * track[x].PeroidWorked) * 100;
+                Textm1 = track[x].Duration;
+            }
+            else if (track[x].Duration == "March")
+            {
+                m1 = (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+                Textm1 = track[x].Duration;
+            }
+            else if (track[x].Duration == "April")
+            {
+                m1 = (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+                Textm1 = track[x].Duration;
+            }
+            else if (track[x].Duration == "May")
+            {
+                m1 = (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+                Textm1 = track[x].Duration;
+            }
+            else if (track[x].Duration == "June")
+            {
+                m1 = (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+                Textm1 = track[x].Duration;
+            }
+            else if (track[x].Duration == "July")
+            {
+                m1 = (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+                Textm1 = track[x].Duration;
+            }
+            else if (track[x].Duration == "August")
+            {
+                m1 = (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+                Textm1 = track[x].Duration;
+            }
+            else if (track[x].Duration == "September")
+            {
+                m1 = (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+                Textm1 = track[x].Duration;
+            }
+            else if (track[x].Duration == "October")
+            {
+                m1 = (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+                Textm1 = track[x].Duration;
+            }
+            else if (track[x].Duration == "November")
+            {
+                m1 = (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+                Textm1 = track[x].Duration;
+            }
+            else if (track[x].Duration == "December")
+            {
+                m1 = (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+                Textm1 = track[x].Duration;
+            }
+        }
+        else if (x == 1)
+        {
+            if (track[x].Duration == "January")
+            {
+                m2 = m1 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "February")
+            {
+                m2 = m1 + (((1 / max_duration) / Feb_days) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "March")
+            {
+                m2 = m1 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "April")
+            {
+                m2 = m1 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "May")
+            {
+                m2 = m1 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "June")
+            {
+                m2 = m1 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "July")
+            {
+                m2 = m1 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "August")
+            {
+                m2 = m1 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "September")
+            {
+                m2 = m1 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "October")
+            {
+                m2 = m1 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "November")
+            {
+                m2 = m1 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "December")
+            {
+                m2 = m1 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+        }
+        else if (x == 2)
+        {
+            if (track[x].Duration == "January")
+            {
+                m3 = m2 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "February")
+            {
+                m3 = m2 + (((1 / max_duration) / Feb_days) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "March")
+            {
+                m3 = m2 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "April")
+            {
+                m3 = m2 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "May")
+            {
+                m3 = m2 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "June")
+            {
+                m3 = m2 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "July")
+            {
+                m3 = m2 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "August")
+            {
+                m3 = m2 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "September")
+            {
+                m3 = m2 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "October")
+            {
+                m3 = m2 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "November")
+            {
+                m3 = m2 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "December")
+            {
+                m3 = m2 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+        }
+        else if (x == 3)
+        {
+            if (track[x].Duration == "January")
+            {
+                m4 = m3 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "February")
+            {
+                m4 = m3 + (((1 / max_duration) / Feb_days) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "March")
+            {
+                m4 = m3 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "April")
+            {
+                m4 = m3 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "May")
+            {
+                m3 = m3 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "June")
+            {
+                m4 = m3 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "July")
+            {
+                m4 = m3 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "August")
+            {
+                m4 = m3 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "September")
+            {
+                m4 = m3 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "October")
+            {
+                m4 = m3 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "November")
+            {
+                m4 = m3 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "December")
+            {
+                m4 = m3 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+        }
+
+        else if (x == 4)
+        {
+            if (track[x].Duration == "January")
+            {
+                m5 = m4 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "February")
+            {
+                m5 = m4 + (((1 / max_duration) / Feb_days) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "March")
+            {
+                m5 = m4 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "April")
+            {
+                m5 = m4 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "May")
+            {
+                m5 = m4 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "June")
+            {
+                m5 = m4 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "July")
+            {
+                m5 = m4 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "August")
+            {
+                m5 = m4 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "September")
+            {
+                m5 = m4 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "October")
+            {
+                m5 = m4 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "November")
+            {
+                m5 = m4 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "December")
+            {
+                m5 = m4 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+        }
+        else if (x == 5)
+        {
+            if (track[x].Duration == "January")
+            {
+                m6 = m5 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "February")
+            {
+                m6 = m5 + (((1 / max_duration) / Feb_days) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "March")
+            {
+                m6 = m5 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "April")
+            {
+                m6 = m5 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "May")
+            {
+                m6 = m5 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "June")
+            {
+                m6 = m5 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "July")
+            {
+                m6 = m5 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "August")
+            {
+                m6 = m5 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "September")
+            {
+                m6 = m5 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "October")
+            {
+                m6 = m5 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "November")
+            {
+                m6 = m5 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "December")
+            {
+                m6 = m5 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+        }
+        else if (x == 6)
+        {
+            if (track[x].Duration == "January")
+            {
+                m7 = m6 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "February")
+            {
+                m7 = m6 + (((1 / max_duration) / Feb_days) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "March")
+            {
+                m7 = m6 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "April")
+            {
+                m7 = m6 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "May")
+            {
+                m7 = m6 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "June")
+            {
+                m7 = m6 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "July")
+            {
+                m7 = m6 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "August")
+            {
+                m7 = m6 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "September")
+            {
+                m7 = m6 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "October")
+            {
+                m7 = m6 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "November")
+            {
+                m7 = m6 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "December")
+            {
+                m7 = m6 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+        }
+        else if (x == 7)
+        {
+            if (track[x].Duration == "January")
+            {
+                m8 = m7 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "February")
+            {
+                m8 = m7 + (((1 / max_duration) / Feb_days) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "March")
+            {
+                m8 = m7 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "April")
+            {
+                m8 = m7 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "May")
+            {
+                m8 = m7 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "June")
+            {
+                m8 = m7 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "July")
+            {
+                m8 = m7 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "August")
+            {
+                m8 = m7 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "September")
+            {
+                m8 = m7 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "October")
+            {
+                m8 = m7 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "November")
+            {
+                m8 = m7 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "December")
+            {
+                m8 = m7 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+        }
+        else if (x == 8)
+        {
+            if (track[x].Duration == "January")
+            {
+                m9 = m8 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "February")
+            {
+                m9 = m8 + (((1 / max_duration) / Feb_days) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "March")
+            {
+                m9 = m8 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "April")
+            {
+                m9 = m8 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "May")
+            {
+                m9 = m8 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "June")
+            {
+                m9 = m8 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "July")
+            {
+                m9 = m8 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "August")
+            {
+                m9 = m8 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "September")
+            {
+                m9 = m8 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "October")
+            {
+                m9 = m8 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "November")
+            {
+                m9 = m8 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "December")
+            {
+                m9 = m8 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+        }
+        else if (x == 9)
+        {
+            if (track[x].Duration == "January")
+            {
+                m10 = m9 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "February")
+            {
+                m10 = m9 + (((1 / max_duration) / Feb_days) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "March")
+            {
+                m10 = m9 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "April")
+            {
+                m10 = m9 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "May")
+            {
+                m10 = m9 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "June")
+            {
+                m10 = m9 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "July")
+            {
+                m10 = m9 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "August")
+            {
+                m10 = m9 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "September")
+            {
+                m10 = m9 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "October")
+            {
+                m10 = m9 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "November")
+            {
+                m10 = m9 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "December")
+            {
+                m10 = m9 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+        }
+        else if (x == 10)
+        {
+            if (track[x].Duration == "January")
+            {
+                m11 = m10 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "February")
+            {
+                m11 = m10 + (((1 / max_duration) / Feb_days) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "March")
+            {
+                m11 = m10 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "April")
+            {
+                m11 = m10 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "May")
+            {
+                m11 = m10 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "June")
+            {
+                m11 = m10 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "July")
+            {
+                m11 = m10 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "August")
+            {
+                m11 = m10 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "September")
+            {
+                m11 = m10 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "October")
+            {
+                m11 = m10 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "November")
+            {
+                m11 = m10 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "December")
+            {
+                m11 = m10 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+        }
+        else if (x == 11)
+        {
+            if (track[x].Duration == "January")
+            {
+                m12 = m11 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "February")
+            {
+                m12 = m11 + (((1 / max_duration) / Feb_days) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "March")
+            {
+                m12 = m11 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "April")
+            {
+                m12 = m11 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "May")
+            {
+                m12 = m11 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "June")
+            {
+                m10 = m11 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "July")
+            {
+                m12 = (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "August")
+            {
+                m12 = m11 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "September")
+            {
+                m12 = m11 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "October")
+            {
+                m12 = m11 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "November")
+            {
+                m12 = m11 + (((1 / max_duration) / 30) * track[x].PeroidWorked) * 100;
+            }
+            else if (track[x].Duration == "December")
+            {
+                m12 = m11 + (((1 / max_duration) / 31) * track[x].PeroidWorked) * 100;
+            }
+        }
+    }
+
+    if (Textm1 == "January")
+    {
+        Textm2 = "February";
+        Textm3 = "March";
+        Textm4 = "April";
+        Textm5 = "May";
+        Textm6 = "June";
+        Textm7 = "July";
+        Textm8 = "August";
+        Textm9 = "September";
+        Textm10 = "October";
+        Textm11 = "November";
+        Textm12 = "December";
+    }
+    else if (Textm1 == "February")
+    {
+
+        Textm2 = "March";
+        Textm3 = "April";
+        Textm4 = "May";
+        Textm5 = "June";
+        Textm6 = "July";
+        Textm7 = "August";
+        Textm8 = "September";
+        Textm9 = "October";
+        Textm10 = "November";
+        Textm11 = "December";
+        Textm12 = "January";
+    }
+    else if (Textm1 == "March")
+    {
+        Textm2 = "April";
+        Textm3 = "May";
+        Textm4 = "June";
+        Textm5 = "July";
+        Textm6 = "August";
+        Textm7 = "September";
+        Textm8 = "October";
+        Textm9 = "November";
+        Textm10 = "December";
+        Textm11 = "January";
+        Textm12 = "February";
+
+    }
+    else if (Textm1 == "April")
+    {
+        Textm2 = "May";
+        Textm3 = "June";
+        Textm4 = "July";
+        Textm5 = "August";
+        Textm6 = "September";
+        Textm7 = "October";
+        Textm8 = "November";
+        Textm9 = "December";
+        Textm10 = "January";
+        Textm11 = "February";
+        Textm12 = "March";
+
+    }
+    else if (Textm1 == "May")
+    {
+        Textm2 = "June";
+        Textm3 = "July";
+        Textm4 = "August";
+        Textm5 = "September";
+        Textm6 = "October";
+        Textm8 = "November";
+        Textm9 = "December";
+        Textm10 = "January";
+        Textm11 = "February";
+        Textm12 = "March";
+    }
+    else if (Textm1 == "June")
+    {
+        Textm2 = "July";
+        Textm3 = "August";
+        Textm4 = "September";
+        Textm5 = "October";
+        Textm6 = "November";
+        Textm7 = "December";
+        Textm8 = "January";
+        Textm9 = "February";
+        Textm10 = "March";
+        Textm11 = "April";
+        Textm12 = "May";
+    }
+    else if (Textm1 == "July")
+    {
+        Textm2 = "August";
+        Textm3 = "September";
+        Textm4 = "October";
+        Textm5 = "November";
+        Textm6 = "December";
+        Textm7 = "January";
+        Textm8 = "February";
+        Textm9 = "March";
+        Textm10 = "April";
+        Textm11 = "May";
+        Textm12 = "June";
+    }
+    else if (Textm1 == "August")
+    {
+        Textm2 = "September";
+        Textm3 = "October";
+        Textm4 = "November";
+        Textm5 = "December";
+        Textm6 = "January";
+        Textm7 = "February";
+        Textm8 = "March";
+        Textm9 = "April";
+        Textm10 = "May";
+        Textm11 = "June";
+        Textm12 = "July";
+    }
+    else if (Textm1 == "September")
+    {
+        Textm2 = "October";
+        Textm3 = "November";
+        Textm4 = "December";
+        Textm5 = "January";
+        Textm6 = "February";
+        Textm7 = "March";
+        Textm8 = "April";
+        Textm9 = "May";
+        Textm10 = "June";
+        Textm11 = "July";
+        Textm12 = "August";
+    }
+    else if (Textm1 == "October")
+    {
+        Textm2 = "November";
+        Textm3 = "December";
+        Textm4 = "January";
+        Textm5 = "February";
+        Textm6 = "March";
+        Textm7 = "April";
+        Textm8 = "May";
+        Textm9 = "June";
+        Textm10 = "July";
+        Textm11 = "August";
+        Textm12 = "September";
+    }
+    else if (Textm1 == "November")
+    {
+        Textm2 = "December";
+        Textm3 = "January";
+        Textm4 = "February";
+        Textm5 = "March";
+        Textm6 = "April";
+        Textm7 = "May";
+        Textm8 = "June";
+        Textm9 = "July";
+        Textm10 = "August";
+        Textm11 = "September";
+        Textm12 = "October";
+    }
+    else if (Textm1 == "December")
+    {
+        Textm2 = "January";
+        Textm3 = "February";
+        Textm4 = "March";
+        Textm5 = "April";
+        Textm6 = "May";
+        Textm7 = "June";
+        Textm8 = "July";
+        Textm9 = "August";
+        Textm10 = "September";
+        Textm11 = "October";
+        Textm12 = "November";
+    }
+
+
+
+}
+<h2 class="text-center">Line Graph</h2>
+<div class="well">
+    <div><a href="@Url.Action("GetAllProgress", new { projectID=ViewBag.proj })" class="fa fa-arrow-circle-o-left" style="font-size:30px;">Back</a></div>
+    <div id="line_top_x" style="padding-left:10%;"></div>
+</div>
+<br />
+<br />
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', { 'packages': ['line'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Months');
+        data.addColumn('number', 'Estimated Progress');
+        data.addColumn('number', 'Actual Progress');
+
+        if(@Convert.ToInt32(m1)!=0 &&  @Convert.ToInt32(m2)==0 && @Convert.ToInt32(m3)==0 &&  @Convert.ToInt32(m4)==0 && @Convert.ToInt32(m5)==0 && @Convert.ToInt32(m6)==0 && @Convert.ToInt32(m7)==0 && @Convert.ToInt32(m8)==0 && @Convert.ToInt32(m9)==0 &&  @Convert.ToInt32(m10)==0 &&  @Convert.ToInt32(m11)==0 &&  @Convert.ToInt32(m12)==0)
+        {
+            data.addRows([
+       ['@Textm1', @Convert.ToInt32(Estimatedm1), @Convert.ToInt32(m1)],
+       ['@Textm2', @Convert.ToInt32(Estimatedm2), null],
+       ['@Textm3', @Convert.ToInt32(Estimatedm3), null],
+       ['@Textm4', @Convert.ToInt32(Estimatedm4), null],
+       ['@Textm5', @Convert.ToInt32(Estimatedm5), null],
+       ['@Textm6', @Convert.ToInt32(Estimatedm6), null],
+       ['@Textm7', @Convert.ToInt32(Estimatedm7), null],
+       ['@Textm8', @Convert.ToInt32(Estimatedm8), null],
+       ['@Textm9', @Convert.ToInt32(Estimatedm9), null],
+       ['@Textm10', @Convert.ToInt32(Estimatedm10), null],
+       ['@Textm11', @Convert.ToInt32(Estimatedm11), null],
+       ['@Textm12', @Convert.ToInt32(Estimatedm12), null]
+            ]);
+        }
+        else if(@Convert.ToInt32(m1)!=0 &&  @Convert.ToInt32(m2)!=0 && @Convert.ToInt32(m3)==0 &&  @Convert.ToInt32(m4)==0 && @Convert.ToInt32(m5)==0 && @Convert.ToInt32(m6)==0 && @Convert.ToInt32(m7)==0 && @Convert.ToInt32(m8)==0 && @Convert.ToInt32(m9)==0 &&  @Convert.ToInt32(m10)==0 &&  @Convert.ToInt32(m11)==0 &&  @Convert.ToInt32(m12)==0)
+        {
+            data.addRows([
+         ['@Textm1', @Convert.ToInt32(Estimatedm1), @Convert.ToInt32(m1)],
+         ['@Textm2', @Convert.ToInt32(Estimatedm2), @Convert.ToInt32(m2)],
+         ['@Textm3', @Convert.ToInt32(Estimatedm3), null],
+         ['@Textm4', @Convert.ToInt32(Estimatedm4), null],
+         ['@Textm5', @Convert.ToInt32(Estimatedm5), null],
+         ['@Textm6', @Convert.ToInt32(Estimatedm6), null],
+         ['@Textm7', @Convert.ToInt32(Estimatedm7), null],
+         ['@Textm8', @Convert.ToInt32(Estimatedm8), null],
+         ['@Textm9', @Convert.ToInt32(Estimatedm9), null],
+         ['@Textm10', @Convert.ToInt32(Estimatedm10), null],
+         ['@Textm11', @Convert.ToInt32(Estimatedm11), null],
+         ['@Textm12', @Convert.ToInt32(Estimatedm12), null]
+            ]);
+        }
+        else if(@Convert.ToInt32(m1)!=0 &&  @Convert.ToInt32(m2)!=0 && @Convert.ToInt32(m3)!=0 &&  @Convert.ToInt32(m4)==0 && @Convert.ToInt32(m5)==0 && @Convert.ToInt32(m6)==0 && @Convert.ToInt32(m7)==0 && @Convert.ToInt32(m8)==0 && @Convert.ToInt32(m9)==0 &&  @Convert.ToInt32(m10)==0 &&  @Convert.ToInt32(m11)==0 &&  @Convert.ToInt32(m12)==0)
+        {
+            data.addRows([
+         ['@Textm1', @Convert.ToInt32(Estimatedm1), @Convert.ToInt32(m1)],
+         ['@Textm2', @Convert.ToInt32(Estimatedm2), @Convert.ToInt32(m2)],
+         ['@Textm3', @Convert.ToInt32(Estimatedm3), @Convert.ToInt32(m3)],
+         ['@Textm4', @Convert.ToInt32(Estimatedm4), null],
+         ['@Textm5', @Convert.ToInt32(Estimatedm5), null],
+         ['@Textm6', @Convert.ToInt32(Estimatedm6), null],
+         ['@Textm7', @Convert.ToInt32(Estimatedm7), null],
+         ['@Textm8', @Convert.ToInt32(Estimatedm8), null],
+         ['@Textm9', @Convert.ToInt32(Estimatedm9), null],
+         ['@Textm10', @Convert.ToInt32(Estimatedm10), null],
+         ['@Textm11', @Convert.ToInt32(Estimatedm11), null],
+         ['@Textm12', @Convert.ToInt32(Estimatedm12), null]
+            ]);
+        }
+        else if(@Convert.ToInt32(m1)!=0 &&  @Convert.ToInt32(m2)!=0 && @Convert.ToInt32(m3)!=0 &&  @Convert.ToInt32(m4)!=0 && @Convert.ToInt32(m5)==0 && @Convert.ToInt32(m6)==0 && @Convert.ToInt32(m7)==0 && @Convert.ToInt32(m8)==0 && @Convert.ToInt32(m9)==0 &&  @Convert.ToInt32(m10)==0 &&  @Convert.ToInt32(m11)==0 &&  @Convert.ToInt32(m12)==0)
+        {
+            data.addRows([
+         ['@Textm1', @Convert.ToInt32(Estimatedm1), @Convert.ToInt32(m1)],
+         ['@Textm2', @Convert.ToInt32(Estimatedm2), @Convert.ToInt32(m2)],
+         ['@Textm3', @Convert.ToInt32(Estimatedm3), @Convert.ToInt32(m3)],
+         ['@Textm4', @Convert.ToInt32(Estimatedm4), @Convert.ToInt32(m4)],
+         ['@Textm5', @Convert.ToInt32(Estimatedm5), null],
+         ['@Textm6', @Convert.ToInt32(Estimatedm6), null],
+         ['@Textm7', @Convert.ToInt32(Estimatedm7), null],
+         ['@Textm8', @Convert.ToInt32(Estimatedm8), null],
+         ['@Textm9', @Convert.ToInt32(Estimatedm9), null],
+         ['@Textm10',@Convert.ToInt32(Estimatedm10), null],
+         ['@Textm11', @Convert.ToInt32(Estimatedm11), null],
+         ['@Textm12', @Convert.ToInt32(Estimatedm12), null]
+            ]);
+        }
+
+        else if(@Convert.ToInt32(m1)!=0 &&  @Convert.ToInt32(m2)!=0 && @Convert.ToInt32(m3)!=0 &&  @Convert.ToInt32(m4)!=0 && @Convert.ToInt32(m5)!=0 && @Convert.ToInt32(m6)==0 && @Convert.ToInt32(m7)==0 && @Convert.ToInt32(m8)==0 && @Convert.ToInt32(m9)==0 &&  @Convert.ToInt32(m10)==0 &&  @Convert.ToInt32(m11)==0 &&  @Convert.ToInt32(m12)==0)
+        {
+            data.addRows([
+         ['@Textm1', @Convert.ToInt32(Estimatedm1), @Convert.ToInt32(m1)],
+         ['@Textm2', @Convert.ToInt32(Estimatedm2), @Convert.ToInt32(m2)],
+         ['@Textm3', @Convert.ToInt32(Estimatedm3), @Convert.ToInt32(m3)],
+         ['@Textm4', @Convert.ToInt32(Estimatedm4), @Convert.ToInt32(m4)],
+         ['@Textm5', @Convert.ToInt32(Estimatedm5), @Convert.ToInt32(m5)],
+         ['@Textm6', @Convert.ToInt32(Estimatedm6), null],
+         ['@Textm7', @Convert.ToInt32(Estimatedm7), null],
+         ['@Textm8', @Convert.ToInt32(Estimatedm8), null],
+         ['@Textm9', @Convert.ToInt32(Estimatedm9), null],
+         ['@Textm10', @Convert.ToInt32(Estimatedm10), null],
+         ['@Textm11', @Convert.ToInt32(Estimatedm11), null],
+         ['@Textm12', @Convert.ToInt32(Estimatedm12), null]
+            ]);
+        }
+
+        else if(@Convert.ToInt32(m1)!=0 &&  @Convert.ToInt32(m2)!=0 && @Convert.ToInt32(m3)!=0 &&  @Convert.ToInt32(m4)!=0 && @Convert.ToInt32(m5)!=0 && @Convert.ToInt32(m6)!=0 && @Convert.ToInt32(m7)==0 && @Convert.ToInt32(m8)==0 && @Convert.ToInt32(m9)==0 &&  @Convert.ToInt32(m10)==0 &&  @Convert.ToInt32(m11)==0 &&  @Convert.ToInt32(m12)==0)
+        {
+            data.addRows([
+         ['@Textm1', @Convert.ToInt32(Estimatedm1), @Convert.ToInt32(m1)],
+         ['@Textm2', @Convert.ToInt32(Estimatedm2), @Convert.ToInt32(m2)],
+         ['@Textm3', @Convert.ToInt32(Estimatedm3), @Convert.ToInt32(m3)],
+         ['@Textm4', @Convert.ToInt32(Estimatedm4), @Convert.ToInt32(m4)],
+         ['@Textm5', @Convert.ToInt32(Estimatedm5), @Convert.ToInt32(m5)],
+         ['@Textm6', @Convert.ToInt32(Estimatedm6), @Convert.ToInt32(m6)],
+         ['@Textm7', @Convert.ToInt32(Estimatedm7), null],
+         ['@Textm8', @Convert.ToInt32(Estimatedm8), null],
+         ['@Textm9', @Convert.ToInt32(Estimatedm9), null],
+         ['@Textm10', @Convert.ToInt32(Estimatedm10), null],
+         ['@Textm11', @Convert.ToInt32(Estimatedm11), null],
+         ['@Textm12', @Convert.ToInt32(Estimatedm12), null]
+            ]);
+        }
+
+        else if(@Convert.ToInt32(m1)!=0 &&  @Convert.ToInt32(m2)!=0 && @Convert.ToInt32(m3)!=0 &&  @Convert.ToInt32(m4)!=0 && @Convert.ToInt32(m5)!=0 && @Convert.ToInt32(m6)!=0 && @Convert.ToInt32(m7)!=0 && @Convert.ToInt32(m8)==0 && @Convert.ToInt32(m9)==0 &&  @Convert.ToInt32(m10)==0 &&  @Convert.ToInt32(m11)==0 &&  @Convert.ToInt32(m12)==0)
+        {
+            data.addRows([
+         ['@Textm1', @Convert.ToInt32(Estimatedm1), @Convert.ToInt32(m1)],
+         ['@Textm2', @Convert.ToInt32(Estimatedm2), @Convert.ToInt32(m2)],
+         ['@Textm3', @Convert.ToInt32(Estimatedm3), @Convert.ToInt32(m3)],
+         ['@Textm4', @Convert.ToInt32(Estimatedm4), @Convert.ToInt32(m4)],
+         ['@Textm5', @Convert.ToInt32(Estimatedm5), @Convert.ToInt32(m5)],
+         ['@Textm6', @Convert.ToInt32(Estimatedm6), @Convert.ToInt32(m6)],
+         ['@Textm7', @Convert.ToInt32(Estimatedm7), @Convert.ToInt32(m7)],
+         ['@Textm8', @Convert.ToInt32(Estimatedm8), null],
+         ['@Textm9', @Convert.ToInt32(Estimatedm9), null],
+         ['@Textm10', @Convert.ToInt32(Estimatedm10), null],
+         ['@Textm11', @Convert.ToInt32(Estimatedm11), null],
+         ['@Textm12', @Convert.ToInt32(Estimatedm12), null]
+            ]);
+        }
+        else if(@Convert.ToInt32(m1)!=0 &&  @Convert.ToInt32(m2)!=0 && @Convert.ToInt32(m3)!=0 &&  @Convert.ToInt32(m4)!=0 && @Convert.ToInt32(m5)!=0 && @Convert.ToInt32(m6)!=0 && @Convert.ToInt32(m7)!=0 && @Convert.ToInt32(m8)!=0 && @Convert.ToInt32(m9)==0 &&  @Convert.ToInt32(m10)==0 &&  @Convert.ToInt32(m11)==0 &&  @Convert.ToInt32(m12)==0)
+        {
+            data.addRows([
+         ['@Textm1', @Convert.ToInt32(Estimatedm1), @Convert.ToInt32(m1)],
+         ['@Textm2', @Convert.ToInt32(Estimatedm2), @Convert.ToInt32(m2)],
+         ['@Textm3', @Convert.ToInt32(Estimatedm3), @Convert.ToInt32(m3)],
+         ['@Textm4', @Convert.ToInt32(Estimatedm4), @Convert.ToInt32(m4)],
+         ['@Textm5', @Convert.ToInt32(Estimatedm5), @Convert.ToInt32(m5)],
+         ['@Textm6', @Convert.ToInt32(Estimatedm6), @Convert.ToInt32(m6)],
+         ['@Textm7', @Convert.ToInt32(Estimatedm7), @Convert.ToInt32(m7)],
+         ['@Textm8', @Convert.ToInt32(Estimatedm8), @Convert.ToInt32(m8)],
+         ['@Textm9', @Convert.ToInt32(Estimatedm9), null],
+         ['@Textm10', @Convert.ToInt32(Estimatedm10), null],
+         ['@Textm11', @Convert.ToInt32(Estimatedm11), null],
+         ['@Textm12', @Convert.ToInt32(Estimatedm12), null]
+            ]);
+        }
+        else if(@Convert.ToInt32(m1)!=0 &&  @Convert.ToInt32(m2)!=0 && @Convert.ToInt32(m3)!=0 &&  @Convert.ToInt32(m4)!=0 && @Convert.ToInt32(m5)!=0 && @Convert.ToInt32(m6)!=0 && @Convert.ToInt32(m7)!=0 && @Convert.ToInt32(m8)!=0 && @Convert.ToInt32(m9)!=0 &&  @Convert.ToInt32(m10)==0 &&  @Convert.ToInt32(m11)==0 &&  @Convert.ToInt32(m12)==0)
+        {
+            data.addRows([
+         ['@Textm1', @Convert.ToInt32(Estimatedm1), @Convert.ToInt32(m1)],
+         ['@Textm2', @Convert.ToInt32(Estimatedm2), @Convert.ToInt32(m2)],
+         ['@Textm3', @Convert.ToInt32(Estimatedm3), @Convert.ToInt32(m3)],
+         ['@Textm4', @Convert.ToInt32(Estimatedm4), @Convert.ToInt32(m4)],
+         ['@Textm5', @Convert.ToInt32(Estimatedm5), @Convert.ToInt32(m5)],
+         ['@Textm6', @Convert.ToInt32(Estimatedm6), @Convert.ToInt32(m6)],
+         ['@Textm7', @Convert.ToInt32(Estimatedm7), @Convert.ToInt32(m7)],
+         ['@Textm8', @Convert.ToInt32(Estimatedm8), @Convert.ToInt32(m8)],
+         ['@Textm9', @Convert.ToInt32(Estimatedm9), @Convert.ToInt32(m9)],
+         ['@Textm10',@Convert.ToInt32(Estimatedm10),  null],
+         ['@Textm11', @Convert.ToInt32(Estimatedm11), null],
+         ['@Textm12', @Convert.ToInt32(Estimatedm12), null]
+            ]);
+        }
+        else if(@Convert.ToInt32(m1)!=0 &&  @Convert.ToInt32(m2)!=0 && @Convert.ToInt32(m3)!=0 &&  @Convert.ToInt32(m4)!=0 && @Convert.ToInt32(m5)!=0 && @Convert.ToInt32(m6)!=0 && @Convert.ToInt32(m7)!=0 && @Convert.ToInt32(m8)!=0 && @Convert.ToInt32(m9)!=0 &&  @Convert.ToInt32(m10)!=0 &&  @Convert.ToInt32(m11)==0 &&  @Convert.ToInt32(m12)==0)
+        {
+            data.addRows([
+         ['@Textm1', @Convert.ToInt32(Estimatedm1), @Convert.ToInt32(m1)],
+         ['@Textm2', @Convert.ToInt32(Estimatedm2), @Convert.ToInt32(m2)],
+         ['@Textm3', @Convert.ToInt32(Estimatedm3), @Convert.ToInt32(m3)],
+         ['@Textm4', @Convert.ToInt32(Estimatedm4), @Convert.ToInt32(m4)],
+         ['@Textm5', @Convert.ToInt32(Estimatedm5), @Convert.ToInt32(m5)],
+         ['@Textm6', @Convert.ToInt32(Estimatedm6), @Convert.ToInt32(m6)],
+         ['@Textm7', @Convert.ToInt32(Estimatedm7), @Convert.ToInt32(m7)],
+         ['@Textm8', @Convert.ToInt32(Estimatedm8), @Convert.ToInt32(m8)],
+         ['@Textm9', @Convert.ToInt32(Estimatedm9), @Convert.ToInt32(m9)],
+         ['@Textm10', @Convert.ToInt32(Estimatedm10), @Convert.ToInt32(m10)],
+         ['@Textm11', @Convert.ToInt32(Estimatedm11), null],
+         ['@Textm12', @Convert.ToInt32(Estimatedm12), null]
+            ]);
+        }
+        else if(@Convert.ToInt32(m1)!=0 &&  @Convert.ToInt32(m2)!=0 && @Convert.ToInt32(m3)!=0 &&  @Convert.ToInt32(m4)!=0 && @Convert.ToInt32(m5)!=0 && @Convert.ToInt32(m6)!=0 && @Convert.ToInt32(m7)!=0 && @Convert.ToInt32(m8)!=0 && @Convert.ToInt32(m9)!=0 &&  @Convert.ToInt32(m10)!=0 &&  @Convert.ToInt32(m11)!=0 &&  @Convert.ToInt32(m12)==0)
+        {
+            data.addRows([
+         ['@Textm1', @Convert.ToInt32(Estimatedm1), @Convert.ToInt32(m1)],
+         ['@Textm2', @Convert.ToInt32(Estimatedm2), @Convert.ToInt32(m2)],
+         ['@Textm3', @Convert.ToInt32(Estimatedm3), @Convert.ToInt32(m3)],
+         ['@Textm4', @Convert.ToInt32(Estimatedm4), @Convert.ToInt32(m4)],
+         ['@Textm5', @Convert.ToInt32(Estimatedm5), @Convert.ToInt32(m5)],
+         ['@Textm6', @Convert.ToInt32(Estimatedm6), @Convert.ToInt32(m6)],
+         ['@Textm7', @Convert.ToInt32(Estimatedm7), @Convert.ToInt32(m7)],
+         ['@Textm8', @Convert.ToInt32(Estimatedm8), @Convert.ToInt32(m8)],
+         ['@Textm9', @Convert.ToInt32(Estimatedm9), @Convert.ToInt32(m9)],
+         ['@Textm10', @Convert.ToInt32(Estimatedm10), @Convert.ToInt32(m10)],
+         ['@Textm11', @Convert.ToInt32(Estimatedm11), @Convert.ToInt32(m11)],
+         ['@Textm12', @Convert.ToInt32(Estimatedm12), null]
+            ]);
+        }
+
+        else if(@Convert.ToInt32(m1)!=0 &&  @Convert.ToInt32(m2)!=0 && @Convert.ToInt32(m3)!=0 &&  @Convert.ToInt32(m4)!=0 && @Convert.ToInt32(m5)!=0 && @Convert.ToInt32(m6)!=0 && @Convert.ToInt32(m7)!=0 && @Convert.ToInt32(m8)!=0 && @Convert.ToInt32(m9)!=0 &&  @Convert.ToInt32(m10)!=0 &&  @Convert.ToInt32(m11)!=0 &&  @Convert.ToInt32(m12)!=0)
+        {
+            data.addRows([
+         ['@Textm1', @Convert.ToInt32(Estimatedm1), @Convert.ToInt32(m1)],
+         ['@Textm2', @Convert.ToInt32(Estimatedm2), @Convert.ToInt32(m2)],
+         ['@Textm3', @Convert.ToInt32(Estimatedm3), @Convert.ToInt32(m3)],
+         ['@Textm4', @Convert.ToInt32(Estimatedm4), @Convert.ToInt32(m4)],
+         ['@Textm5', @Convert.ToInt32(Estimatedm5), @Convert.ToInt32(m5)],
+         ['@Textm6', @Convert.ToInt32(Estimatedm6), @Convert.ToInt32(m6)],
+         ['@Textm7', @Convert.ToInt32(Estimatedm7), @Convert.ToInt32(m7)],
+         ['@Textm8', @Convert.ToInt32(Estimatedm8), @Convert.ToInt32(m8)],
+         ['@Textm9', @Convert.ToInt32(Estimatedm9), @Convert.ToInt32(m9)],
+         ['@Textm10', @Convert.ToInt32(Estimatedm10), @Convert.ToInt32(m10)],
+         ['@Textm11', @Convert.ToInt32(Estimatedm11), @Convert.ToInt32(m11)],
+         ['@Textm12', @Convert.ToInt32(Estimatedm12), @Convert.ToInt32(m12)]
+            ]);
+        }
+        else{
+            data.addRows([
+         ['@Textm1', @Convert.ToInt32(Estimatedm1), null],
+         ['@Textm2', @Convert.ToInt32(Estimatedm2), null],
+         ['@Textm3', @Convert.ToInt32(Estimatedm3), null],
+         ['@Textm4', @Convert.ToInt32(Estimatedm4), null],
+         ['@Textm5', @Convert.ToInt32(Estimatedm5), null],
+         ['@Textm6', @Convert.ToInt32(Estimatedm6), null],
+         ['@Textm7', @Convert.ToInt32(Estimatedm7), null],
+         ['@Textm8', @Convert.ToInt32(Estimatedm8), null],
+         ['@Textm9', @Convert.ToInt32(Estimatedm9), null],
+         ['@Textm10', @Convert.ToInt32(Estimatedm10),null],
+         ['@Textm11', @Convert.ToInt32(Estimatedm11),null],
+         ['@Textm12', @Convert.ToInt32(Estimatedm12),null]
+            ]);
+        }
+
+        var options = {
+            chart: {
+                title: 'Project Progress Report',
+                subtitle: 'Per Month'
+            },
+            width: 1100,
+            height: 600,
+            axes: {
+                x: {
+                    0: { side: 'top' }
+                }
+            }
+        };
+
+        var chart = new google.charts.Line(document.getElementById('line_top_x'));
+
+        chart.draw(data, options);
+    }
+</script>

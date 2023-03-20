@@ -1,0 +1,67 @@
+﻿@model WHSIC.Model.SalaryViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Treasure/_DashBoard.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SalaryViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FirsName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirsName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Net)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Net)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tax)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Salary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Salary)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.SalaryID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

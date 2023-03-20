@@ -1,0 +1,114 @@
+﻿@model IEnumerable<WHSIC.Data.Asset_Rentalz>
+@using WHSIC.Data
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Treasure/_DashBoard.cshtml";
+    ApplicationDbContext db = new ApplicationDbContext();
+}
+
+<h2>List of Rented Assets</h2>
+
+<div class="well">
+    <table class="table table-bordered table-hover table-striped">
+        <tr>
+            <th>
+                @Html.DisplayName("Category")
+            </th>
+            <th>
+                @Html.DisplayName("Asset Name")
+            </th>
+
+            <th>
+                @Html.DisplayName("Renter Name")
+            </th>
+            <th>
+                @Html.DisplayName("Hire Date")
+            </th>
+            <th>
+                @Html.DisplayName("Return Date")
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Condition)
+            </th>
+            <th>
+                @Html.DisplayName("Hired")
+            </th>
+            <th>
+                @Html.DisplayName("Returned")
+            </th>
+            <th>
+                @Html.DisplayName("Remaining")
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Returned)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            Asset find = db.Assets.ToList().Find(x => x.Asset_Code == item.Asset_Code);
+            int rqty = item.quantity - item.returnedQty;
+            <tr>
+                <td>
+                    @find.Asset_Categories.CName
+                </td>
+                <td>
+                    @find.AName
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Asset_Renters.FullName)
+                </td>
+                <td>
+                    @item.HireDate.ToShortDateString()
+                </td>
+                <td>
+                    @item.ReturnDate.ToShortDateString()
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Condition)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.returnedQty)
+                </td>
+                @if (rqty != 0)
+                {
+                    <td style="color:red;"><strong>@rqty</strong></td>
+                }
+                @if (rqty == 0)
+                {
+                    <td style="color:green;"><strong>@rqty</strong></td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.Returned)
+                </td>
+                @if (item.Returned == false && rqty == 0)
+                {
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Rental_code }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Rental_code })
+                    </td>
+                }
+                @if (item.Returned == false)
+                {
+                    <td>
+                        @Html.ActionLink("Return", "Returned", new { id = item.Rental_code }, new { @class = "btn btn-success" })
+                    </td>
+                }
+
+
+            </tr>
+        }
+
+    </table>
+</div>
+

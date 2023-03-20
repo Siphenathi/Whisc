@@ -1,0 +1,15 @@
+﻿@model WHSIC.Model.DonationViewModel
+@{
+    ViewBag.Title = "Index";
+
+}
+
+<h1>After Payment</h1>
+
+    @Html.ActionLink("Print Receipt", "Print", "Payfast", new { donation_idpar = Model.DonationID})
+
+
+
+
+
+

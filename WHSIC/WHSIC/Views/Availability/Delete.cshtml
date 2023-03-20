@@ -1,0 +1,48 @@
+﻿@model WHSIC.Model.AvailabilityViewModel
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Secretary/_DashBoard.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete these Dates?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Startdate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Startdate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PastorName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PastorName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

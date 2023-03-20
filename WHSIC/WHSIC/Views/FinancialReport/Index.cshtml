@@ -1,0 +1,47 @@
+﻿@model IEnumerable<object>
+@using WHSIC.Model;
+@using WHSIC.Data;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Admin/_DashBoard.cshtml";
+
+    List<DonationViewModel> listIncome = Model.ToList()[0] as List<DonationViewModel>;
+    List<Expense_PaidViewModel> listexpense = Model.ToList()[1] as List<Expense_PaidViewModel>;
+    List<Asset_Rentalz> Rental = Model.ToList()[2] as List<Asset_Rentalz>;
+    decimal TotalIncome = 0,totExpense=0, Net_Income=0, totbal = 0;
+    ViewBag.des= listexpense.Count;
+    ReportViewModel Report = new ReportViewModel();
+}
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<h2 class="text-center"><b >Financial Report</b></h2>
+<div>
+    @Html.Partial("_SearchReport", Report)
+</div>
+
+<div id="body">
+    <ul class="nav nav-tabs" style="padding-left:20%">
+        <li class="active"><a href="#one" data-toggle="tab" class="glyphicon glyphicon-list" style="font-size:20px">Income Statement</a></li>
+        <li><a href="#two" data-toggle="tab" class="glyphicon glyphicon-gift" style="font-size:20px">Income Only</a></li>
+        <li><a href="#three" data-toggle="tab" class="glyphicon glyphicon-export" style="font-size:20px">Expenses</a></li>
+        <li><a href="#four" data-toggle="tab" class="fa fa-pie-chart" style="font-size:20px">Charts</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="one">
+            @Html.Partial("_ProfandLost", Model)
+        </div>
+        <div class="tab-pane" id="two">
+            @Html.Partial("_Income", listIncome)
+        </div>
+        <div class="tab-pane" id="three">
+           @Html.Partial("_Expenses",listexpense)
+        </div>
+        <div class="tab-pane" id="four">
+            <div class="text-center">@Html.ActionLink("Full chart", "RenderChart", "Treasure")</div>
+            @Html.Partial("Chart", listIncome)
+
+        </div>
+    </div>
+</div>
+
+
+

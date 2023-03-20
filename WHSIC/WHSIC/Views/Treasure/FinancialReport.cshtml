@@ -1,0 +1,54 @@
+﻿@model WHSIC.Model.FREportViewModel
+@using WHSIC.Model;
+@using WHSIC.Data;
+@using WHSIC.Controllers;
+@{
+    ViewBag.Title = "FinancialReport";
+    Layout = "~/Views/Treasure/_DashBoard.cshtml";
+
+    List<DonationViewModel> listIncome = Model.Income;
+    List<Expense_PaidViewModel> listexpense = Model.Expense;
+    List<Asset_Rentalz> Rental = Model.Rental;
+
+    decimal TotalIncome = 0, totExpense = 0, Net_Income = 0, totbal = 0;
+    ViewBag.des = listexpense.Count;
+
+    InternetTime it = new InternetTime();
+    ReportViewModel Report = new ReportViewModel
+    {
+        StartDate = it.GetNistTime(),
+        Endate = it.GetNistTime()
+    };
+}
+<h2 class="text-center"><b>Financial Report</b></h2>
+<div>
+    @Html.Partial("_SearchReport", Report)
+</div>
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<div id="body">
+    <ul class="nav nav-tabs" style="padding-left:20%">
+        <li class="active"><a href="#one" data-toggle="tab" class="glyphicon glyphicon-list" style="font-size:20px">Income Statement</a></li>
+        <li><a href="#two" data-toggle="tab" class="glyphicon glyphicon-gift" style="font-size:20px">Income Only</a></li>
+        <li><a href="#three" data-toggle="tab" class="glyphicon glyphicon-export" style="font-size:20px">Expenditure</a></li>
+        <li><a href="#four" data-toggle="tab" class="fa fa-pie-chart" style="font-size:20px">Charts</a></li>
+        <li><a href="~/FinancialReport/LineGraph" @*data-toggle="tab"*@ class="fa fa-line-chart" style="font-size:20px">Graph</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="one">
+            @Html.Partial("~/Views/FinancialReport/_ProfandLost.cshtml", Model)
+        </div>
+        <div class="tab-pane" id="two">
+            @Html.Partial("~/Views/FinancialReport/_Income.cshtml", listIncome)
+        </div>
+        <div class="tab-pane" id="three">
+            @Html.Partial("~/Views/FinancialReport/_Expenses.cshtml", listexpense)
+        </div>
+        <div class="tab-pane" id="four">
+            <div class="text-center">@Html.ActionLink("Full chart", "RenderChart", "Treasure", new { @class = "glyphicon glyphicon-th-large" })</div>
+            <div>@Html.Partial("~/Views/FinancialReport/Chart.cshtml", listIncome)</div>
+
+        </div>
+    </div>
+</div>
+
+

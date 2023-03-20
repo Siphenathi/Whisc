@@ -1,0 +1,70 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<WHSIC.Model.BranchViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Admin/_DashBoard.cshtml";
+}
+<div class="well">
+    <h2>List of Branch</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table table-bordered table-hover table-striped">
+        <tr>
+            <th>
+                BranchName
+            </th>
+            <th>
+                Pastor
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                Contact
+            </th>
+            <th>
+                Capacity
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BranchName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PastorName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Contact)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Capacity)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.BranchID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.BranchID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.BranchID })
+                </td>
+            </tr>
+        }
+    </table>
+    <div class="text-center">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, pageSize = Model.PageSize }))
+    </div>
+</div>

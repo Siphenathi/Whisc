@@ -1,0 +1,223 @@
+﻿@using iTextSharp.text
+@using PagedList
+@using WHSIC.BusinessLogic
+@using WHSIC.Model
+@{
+    Layout = null;
+    NotificationBusiness nb = new NotificationBusiness();
+    int not = (from n in nb.GetAllNotifications() where n.Red == false select n).Count();
+
+    List<NotificationViewModel> notList = (from n in nb.GetAllNotifications() where n.Red == false select n).ToList();
+    notList.ToPagedList(1, 3);
+    ViewBag.notification = not;
+}
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Admin DashBoard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Augment Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+    Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- Bootstrap Core CSS -->
+    <link href="~/css/bootstrap.min.css" rel='stylesheet' type='text/css' />
+    <!-- Custom CSS -->
+    <link href="~/css/style.css" rel='stylesheet' type='text/css' />
+    <!-- Graph CSS -->
+    <link href="~/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/icon-font.min.css" type='text/css' />
+    <!-- jQuery -->
+    <link href='//fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400' rel='stylesheet' type='text/css'>
+    <!-- lined-icons -->
+    <link href="~/css/icon-font.min.css" rel="stylesheet" />
+    <!-- //lined-icons -->
+    <script src="~/js/jquery-1.10.2.min.js"></script>
+    <script src="~/js/skycons.js"></script>
+
+    <script src="js/jquery.easydropdown.js"></script>
+
+    <!--//skycons-icons-->
+</head>
+<body>
+    <div class="page-container">
+        <!--/content-inner-->
+        <div class="left-content">
+            <div class="inner-content">
+                <!-- header-starts -->
+                <div class="header-section">
+                    <!--menu-right-->
+                    <div class="top_menu">
+                        <div class="profile_details_left">
+                            <div class="row">
+                                <ul class="nofitications-dropdown">
+                                    <li style="padding-right: 50px">
+                                        <ul>
+                                            <li> <span>@Html.Partial("_LoginPartial")</span></li>
+                                        </ul>
+                                    </li>
+                                    
+                                    <li class="dropdown note">
+                                        <a style="background-color: purple" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            <i style="padding-Top: 15px;" class="glyphicon glyphicon-envelope"></i>
+                                            @if (ViewBag.notification != 0)
+                                            {
+                                                <span class="badge" style="width: 40px; height: 40px; text-align: center; font-size: 25px; padding-top: 7px;">@ViewBag.notification</span>
+                                            }
+                                            
+                                        </a>
+                                          <ul class="dropdown-menu two">
+                                            <li>
+                                                <div class="notification_header">
+                                                    @if (ViewBag.notification > 0)
+                                                    {
+                                                        <h3>You have @ViewBag.notification new notification</h3>
+                                                    }
+                                                    else
+                                                    {
+                                                        <h3>There are no new notifications</h3>
+                                                    }
+
+                                                </div>
+                                            </li>
+                                
+                                         <li>
+                                             @Html.Partial("~/Views/Admin/_NewNotifications.cshtml", notList.ToPagedList(1, 3))
+                                         </li>
+                                  
+ 
+                                            <li>
+                                                <div class="notification_bottom">
+                                                    <a href="~/Admin/AllNotifications">See all notification</a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                        </div>
+                        </div>
+
+                    </div>
+                    <!--//menu-right-->
+                    <div class="clearfix" style="background-color: purple"></div>
+                   
+                </div>
+                <!-- //header-ends -->
+                <div class="outter-wp">
+                    <!--custom-widgets-->
+                    <div class="container body-content">
+                        @RenderBody()
+                    </div>
+                </div>
+
+                <!--footer section start-->
+                <footer style="background-color:purple;color:orangered">
+                    <p>&copy 2016-Debuggers</p>
+                </footer>
+            </div>
+        </div>
+        <!--//content-inner-->
+        <!--/sidebar-menu-->
+        <div class="sidebar-menu" style="background-color:purple;color:gold">
+            <header class="logo">
+                <a href="#" class="sidebar-icon"> <span class="fa fa-bars"></span> </a> <a href="#">
+                    <span id="logo"><h3>Administrator</h3></span>
+                    <!--<img id="logo" src="" alt="Logo"/>-->
+                </a>
+            </header>
+            <div style="border-top:1px solid rgba(69, 74, 84, 0.7);background-color:purple;color:gold"></div>
+
+            <!--//down-->
+            <div class="menu" style="background-color:purple;color:gold">
+                <ul id="menu">
+                    <li> <span>@Html.ActionLink("Start Page", "FirstView", "Admin")</span></li>
+                    <li> <span>@Html.ActionLink("Appointment", "Index", "Calendar")</span></li>
+                    @*<li> <span>@Html.ActionLink("Finaincial Report", "Index", "FinancialReport")</span></li>*@
+                    <li id="menu-academico">
+                        <span>@Html.ActionLink("Confirm", null)</span>
+                        <ul id="menu-academico-sub">
+                            <li id="menu-academico-avaliacoes">@Html.ActionLink("Upload Content", "Index", "TempUpload")</li>
+                        </ul>
+                    </li>
+                    <li id="menu-academico">
+                        <span>@Html.ActionLink("Sermons", null)</span>
+                        <ul id="menu-academico-sub">
+                            <li id="menu-academico-avaliacoes">@Html.ActionLink("Automate", "Create", "AutomatedSermon")</li>
+                            <li id="menu-academico-boletim">@Html.ActionLink("Confirm", "Index", "Sermon")</li>
+                            <li id="menu-academico-boletim">@Html.ActionLink("View Sermons", "Index", "Sermon")</li>
+                        </ul>
+                    </li>
+                    <li id="menu-academico">
+                        <span>@Html.ActionLink("Pastor", null)</span>
+                        <ul id="menu-academico-sub">
+                            <li id="menu-academico-avaliacoes">@Html.ActionLink("Add Pastor", "AddPastor", "Pastor")</li>
+                            <li id="menu-academico-boletim">@Html.ActionLink("View Pastors", "Index", "Pastor")</li>
+                        </ul>
+                    </li>
+                    <li id="menu-academico">
+                        <span>@Html.ActionLink("Branch", null)</span>
+                        <ul id="menu-academico-sub">
+                            <li id="menu-academico-avaliacoes">@Html.ActionLink("Add Branches", "Create", "Branch")</li>
+                            <li id="menu-academico-boletim">@Html.ActionLink("View Branches", "Index", "Branch")</li>
+                        </ul>
+                    </li>
+                    <li id="menu-academico">
+                        <span>@Html.ActionLink("Employees", null)</span>
+                        <ul id="menu-academico-sub">
+                            <li id="menu-academico-avaliacoes">@Html.ActionLink("Add Employee", "Create", "Employee")</li>
+                            <li id="menu-academico-boletim">@Html.ActionLink("View Employees", "Index", "Employee")</li>
+                            <li id="menu-academico-boletim">@Html.ActionLink("View Positions", "GetAllPosition", "AdminEmployeePosition")</li>
+                            <li id="menu-academico-boletim">@Html.ActionLink("FullTime", "GetAllFullTime", "AdminFullTimePosition")</li>
+                            <li id="menu-academico-boletim">@Html.ActionLink("PartTime", "GetAllPartTime", "AdminPartTimePosition")</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span>@Html.ActionLink("Expense", null)</span>
+                        <ul id="menu-academico-sub">
+                            <li id="menu-academico-avaliacoes">@Html.ActionLink("View Expense", "GetAllExpense", "AdminExpense")</li>
+                            <li id="menu-academico-boletim">@Html.ActionLink("Paid Expenses", "GetAllPaidExpense", "AdminPaidExpense")</li>
+                        </ul>
+                    </li>
+                    <li id="menu-academico">
+                        <li>
+                            <span>@Html.ActionLink("Donations", null)</span>
+                            <ul id="menu-academico-sub">
+                                <li id="menu-academico-avaliacoes">@Html.ActionLink("View Donations", "GetAllDonations", "AdminDonation")</li>
+
+                            </ul>
+                        </li>
+                        <li> <span>@Html.ActionLink("Members", "Index", "Member")</span></li>
+                        <li> <span>@Html.ActionLink("Roles", "Index", "Role")</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <script>
+							var toggle = true;
+
+							$(".sidebar-icon").click(function() {
+							  if (toggle)
+							  {
+								$(".page-container").addClass("sidebar-collapsed").removeClass("sidebar-collapsed-back");
+								$("#menu span").css({"position":"absolute"});
+							  }
+							  else
+							  {
+								$(".page-container").removeClass("sidebar-collapsed").addClass("sidebar-collapsed-back");
+								setTimeout(function() {
+								  $("#menu span").css({"position":"relative"});
+								}, 400);
+							  }
+
+											toggle = !toggle;
+										});
+    </script>
+    <script src="~/js/jquery.nicescroll.js"></script>
+    <script src="~/js/scripts.js"></script>
+
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

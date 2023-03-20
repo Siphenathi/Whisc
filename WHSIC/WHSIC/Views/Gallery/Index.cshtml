@@ -1,0 +1,48 @@
+﻿
+@using PagedList.Mvc
+@model PagedList.IPagedList<WHSIC.Model.GalleryViewModel>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="pic_market" style="padding-top: 53px; padding-left: 7%;padding-right: 0%">
+    <table class="table">
+        <tr >
+            <td style="border-top: none">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    if (User.IsInRole("Secretary"))
+                    {
+                        <div>
+                            @Html.ActionLink("Add new", "Create", new {}, new {@class = "btn btn-default", style = "background-color:#483d8b; color: #fff"})
+                        </div>
+
+                    }
+                }
+            </td>
+        </tr>
+        <tr style="border-top: none">
+            @foreach (var item in Model)
+            {
+                <td class="outreach" style="border-top: none">
+                    <div class="imagez_g">
+                        <a href="@Url.Action("Details", "Gallery", new {id = item.GalleryId})"><img src="data:image/png;base64,@Convert.ToBase64String(item.ImageData, 0, item.ImageData.Length)"/></a>
+                    </div>
+                </td>
+            }
+        </tr>
+        <tr >
+            <td  style="border-top: none">
+                <div class="col-sm-10">
+                    <div class="text-center">
+                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, pageSize = Model.PageSize }))
+                    </div>
+                </div>
+            </td>
+        </tr>
+
+    </table>
+                
+</div>
+
+

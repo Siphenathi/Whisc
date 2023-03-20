@@ -1,0 +1,67 @@
+﻿@model IEnumerable<WHSIC.Model.ServiceeViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Treasure/_DashBoard.cshtml";
+}
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<h2 class="text-center">List of Services</h2>
+<div class="well">
+    <table class="table table-bordered table-hover table-striped">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Service_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayName("Received?")
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.email)
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Service_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.email)
+                </td>
+                <td>
+                    @Html.ActionLink("Update status", "Edit", new { id = item.Service_id }) 
+
+                </td>
+                <td>
+                    @if(item.Status==true)
+                    {
+                        <div>
+                            <button style="font-size:11px;color:darkblue" class="fa fa-print" onclick="window.open('@Url.Action("PrintService", "Servicees", new { id = item.Service_id })')">Print</button>
+                        </div>
+                    }
+               
+                </td>
+                
+            </tr>
+        }
+
+    </table>
+</div>

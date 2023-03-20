@@ -1,0 +1,73 @@
+﻿@model WHSIC.Model.SermonViewModel
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Admin/_DashBoard.cshtml";
+}
+
+<h2>Delete</h2>
+<div class="well">
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>Sermons</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.pastorName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.pastorName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.BranchName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BranchName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Date)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Date)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.content)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.content)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.StartTime)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.StartTime)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.EndTime)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.EndTime)
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete Sermon" class="btn btn-default" style="background-color:purple; color:gold" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }
+    </div>
+    </div>

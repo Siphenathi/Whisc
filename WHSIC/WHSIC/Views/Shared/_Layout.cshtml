@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - WHSIC</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        .dropdown:hover .dropdown-menu {display: block;}
+    </style>
+
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">
+                <img src="~/images/IMG-20160404-WA0009.jpg" width="70" height="60" class="img-circle"/>
+            </a><br/>
+            <h5 style="color: #483d8b; font-style: italic; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif"><strong><b>Welcome Holy Spirit &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; International</b></strong> </h5>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar" >
+            <ul class="nav navbar-nav navbar-right" style="padding-top:25px">
+                @*<li class="dropdown">
+                    <a>Home</a>
+                    <ul class="dropdown-menu" role="menu">
+                        
+                    </ul>
+                </li>*@
+                <li><a class="active" href="~/Home/Index#1" >Home</a></li>
+                <li><a href="~/Home/Index#4">About</a></li>
+                <li><a href="~/Home/Index#5">Contact</a></li>
+                
+                
+                <li class="dropdown"><a>Activities</a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="~/Gallery/Index" >Gallery</a></li>
+                        <li><a href="~/Home/Index#2" >Events</a></li>
+                        <li><a href="~/FinalSermon/AdvertiseSermon" >Sermon</a></li>
+                        <li><a href="~/Subscribe/JobView">Vacancies</a></li>
+                    </ul>
+                </li>          
+                
+                @if (User.Identity.IsAuthenticated)
+                {
+                    if (User.IsInRole("PA"))
+                    {
+                        <li>@Html.ActionLink("Bishop Schedule", "Index", "Calendar")</li>
+                    }
+                }
+                <li>@Html.Partial("_LoginPartial")</li>
+            </ul>
+        </div>
+    </div>
+</nav>
+  <br>
+    <br />
+    <div class="body-content" >
+        <br />
+        @RenderBody()
+        <footer >
+            <div class="container">
+                <div class="row">
+                    <a href="~/Home/Index#1">Home</a> |
+                    <a href="~/Home/Index#2">Events</a> |
+                    <a>@Html.ActionLink("Sermon", "AdvertiseSermon", "FinalSermon")</a>|
+                    <a href="~/Home/Index#4">About</a> |
+                    <a href="~/Home/Index#5">Contact</a>|
+                    <a href="~/Gallery/Index">Gallery</a>
+
+
+
+                    <p style="color:grey">
+                        <label>Find us on</label>
+                    </p>
+                    <a href="https://www.facebook.com/search/top/?q=welcome%20holy%20spirit%20church%20international"><img src="~/Images/121872-matte-purple-and-white-square-icon-social-media-logos-facebook-logo.png" /></a>
+
+                    <p>Copyright @DateTime.Now.Year - WHSIC. All rights reserved.</p>
+                </div>
+            </div>      
+            
+        
+            <div class="sub-footer" style="background-color:#483d8b">
+                <div class="container">
+                    <div class="row">
+                      
+                        <p>System by-<a href="#">Debuggers </a></p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

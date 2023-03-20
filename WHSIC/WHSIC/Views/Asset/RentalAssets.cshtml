@@ -1,0 +1,114 @@
+﻿@model IEnumerable<WHSIC.Data.Asset>
+@using WHSIC.Data;
+
+@{
+    ViewBag.Title = "RentalAssets";
+    Layout = "~/Views/Treasure/_DashBoard.cshtml";
+    ApplicationDbContext db = new ApplicationDbContext();
+
+}
+
+<h2>List of Rental Assets</h2>
+<div class="well">
+    <p>
+        @Html.ActionLink("All Assets", "Index", null, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Non-Rental", "NonRentalAssets", null, new { @class = "btn btn-primary" })
+        @Html.ActionLink("All Charges", "AllCharges", null, new { @class = "btn btn-primary" })
+    </p>
+    <table class="table table-hover table-bordered table-striped">
+        <tr>
+            <th>
+                @Html.DisplayName(" Asset Category")
+            </th>
+            <th>
+                @Html.DisplayName("Supplier")
+            </th>
+            <th>
+                @Html.DisplayName("Asset Name")
+            </th>
+            <th>
+                @Html.DisplayName("Available Quantity")
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PurchaseDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LifeSpan)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Warranty)
+            </th>
+            <th>
+                @Html.DisplayName("Allow for Rental")
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            AssetCharge charge = db.AssetCharges.ToList().Find(x => x.Asset_Code == item.Asset_Code);
+            Asset_Category cat = db.Asset_Categories.Find(item.CategoryID);
+            <tr>
+                <td>
+                    @cat.CName
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Suppliers.name)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.AName)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.quantity)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitPrice)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @item.PurchaseDate.ToShortDateString()
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LifeSpan)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Warranty)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.ForRental)
+                </td>
+                @if (charge == null)
+                {
+                    <td>
+                        @Html.ActionLink("Add Charges", "AssetCharge", new { id = item.Asset_Code }, new { @class = "label label-danger" })
+                    </td>
+
+                }
+                @if (charge != null)
+                {
+                    <td>
+                        @Html.ActionLink("View Charges", "ChargeDetails", new { id = item.Asset_Code }, new { @class = "label label-info" })
+                        @Html.ActionLink("Edit Charges", "UpdateAssetCharge", new { id = item.Asset_Code }, new { @class = "label label-info" })
+                    </td>
+
+                }
+            </tr>
+        }
+
+    </table>
+</div>
+
+
+

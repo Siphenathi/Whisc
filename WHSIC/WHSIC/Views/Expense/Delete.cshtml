@@ -1,0 +1,81 @@
+﻿@model WHSIC.Model.ExpenseViewModel
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Treasure/_DashBoard.cshtml";
+}
+
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Expense</h4>
+    <hr/>
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.desc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.desc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.payment_due_date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.payment_due_date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.exp_acc_no)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.exp_acc_no)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.from_acc_no)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.from_acc_no)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.amount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.amount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.recurring)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.recurring)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default"/> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
+
+@if (ViewBag.feed != null)
+{
+    <script>
+        alert("@ViewBag.feed")
+    </script>
+}

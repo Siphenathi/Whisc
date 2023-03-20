@@ -1,0 +1,110 @@
+﻿@model WHSIC.Model.ExpenseViewModel
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Admin/_DashBoard.cshtml";
+}
+
+
+<h2 class="text-center">Update Expense</h2>
+<div class="well">
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Expense</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.exp_id)
+        <div class="form-group">
+            @Html.LabelFor(model => model.desc, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.desc, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.desc, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.payment_due_date, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.DropDownList("payment_due_date", new List<SelectListItem>
+               {
+                   new SelectListItem {Text="01",Value="01"},
+                   new SelectListItem{Text="02",Value="02"},
+                   new SelectListItem{Text="03",Value="03"},
+                   new SelectListItem{Text="04",Value="03"},
+                   new SelectListItem{Text="05",Value="05"},
+                   new SelectListItem{Text="06",Value="06"},
+                   new SelectListItem{Text="07",Value="07"},
+                   new SelectListItem{Text="08",Value="08"},
+                   new SelectListItem{Text="09",Value="09"},
+                   new SelectListItem{Text="10",Value="10"},
+                   new SelectListItem{Text="11",Value="11"},
+                   new SelectListItem{Text="12",Value="12"},
+                   new SelectListItem{Text="13",Value="13"},
+                   new SelectListItem{Text="14",Value="14"},
+                   new SelectListItem{Text="15",Value="15"},
+                   new SelectListItem{Text="16",Value="16"},
+                   new SelectListItem{Text="17",Value="17"},
+                   new SelectListItem{Text="18",Value="18"},
+                   new SelectListItem{Text="19",Value="19"},
+                   new SelectListItem{Text="20",Value="20"},
+                   new SelectListItem{Text="21",Value="21"},
+                   new SelectListItem{Text="22",Value="22"},
+                   new SelectListItem{Text="23",Value="23"},
+                   new SelectListItem{Text="24",Value="24"},
+                   new SelectListItem{Text="25",Value="25"},
+                   new SelectListItem{Text="26",Value="26"},
+                   new SelectListItem{Text="27",Value="27"},
+                   new SelectListItem{Text="28",Value="28"},
+                   new SelectListItem{Text="29",Value="29"},
+                   new SelectListItem{Text="30",Value="30"},
+                    new SelectListItem{Text="31",Value="31"},
+
+
+               }, "Select Payment Day", new { @style = "width:253px;height:38px;" })
+                @Html.ValidationMessageFor(model => model.payment_due_date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.exp_acc_no, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.exp_acc_no, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.exp_acc_no, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.from_acc_no, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.from_acc_no, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.from_acc_no, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.amount, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.amount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.amount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "GetAllExpense")
+</div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

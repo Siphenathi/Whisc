@@ -1,0 +1,65 @@
+﻿@model IEnumerable<WHSIC.Model.PastorViewModel>
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Admin/_DashBoard.cshtml";
+        
+}
+@foreach (var item in Model)
+{
+<div class="well">
+    <h2>Pastor @item.FirstName @item.Surname's details</h2>
+
+    <div>
+        
+        <hr />
+        <div style="padding-left:10%;padding-bottom:2%">
+            <a><img src="data:image/png;base64,@Convert.ToBase64String(item.image, 0, item.image.Length)" class="pastor-img" style="width:260px;height:230px;" /></a>
+        </div>
+        <dl class="dl-horizontal">
+            <dt>
+                @item.FirstName
+            </dt>
+
+            <dd>
+                @item.FirstName
+            </dd>
+
+            <dt>
+                Surname
+            </dt>
+
+            <dd>
+                item.Surname
+            </dd>
+            <dt>
+                Email
+            </dt>
+
+            <dd>
+                @item.email
+            </dd>
+
+            <dt>
+                Contact
+            </dt>
+
+            <dd>
+                @item.contact
+            </dd>
+            <dt>
+               Date
+            </dt>
+            <dd>
+                @item.Date
+            </dd>
+
+        </dl>
+
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = item.pastorID }, new { @class = "btn btn-default", @style = "background-color:purple; color:gold" }) |
+        @Html.ActionLink("Back to List", "Index", new { @class = "btn btn-default", @style = "background-color:purple; color:gold" })
+    </p>
+    </div>
+        }

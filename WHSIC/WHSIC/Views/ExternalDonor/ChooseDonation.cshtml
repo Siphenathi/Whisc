@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "ChooseDonation";
+}
+<div style="padding-top:10%">
+<h2 class="text-center">Choose Donation Type</h2>
+<div  style="padding-left:40%">
+    <style>
+        img {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+
+    <div>
+        <p>
+            <a href="@Url.Action("Create","Servicees")">
+                <img src="~/Images/Provide service.jpg" />
+            </a><br /><div>Click on the above picture to provide service Donation</div>
+        </p>
+    </div>
+
+    <div>
+        <p>
+            <a href="@Url.Action("MakeDonation","ExternalDonor",null)">
+                <img src="~/Images/Make a donattion.jpg" />
+            </a><br /><div>Click on the above picture to provide monetary donation</div>
+        </p>
+    </div>
+</div>
+</div>

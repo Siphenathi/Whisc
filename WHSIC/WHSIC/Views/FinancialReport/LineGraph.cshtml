@@ -1,0 +1,444 @@
+﻿@using WHSIC.Model;
+@using WHSIC.BusinessLogic;
+@using WHSIC.Controllers;
+@{
+
+    InternetTime it = new InternetTime();
+    DonationBusiness _db = new DonationBusiness();
+    Expense_PaidBusiness epb = new Expense_PaidBusiness();
+
+    //DonationViewModel donation = new DonationViewModel();
+    //Expense_PaidViewModel paidexp = new Expense_PaidViewModel();
+
+    List<DonationViewModel> ListIncome = _db.GetAllDonation();
+    List<Expense_PaidViewModel> ListExpense = epb.GetAllExpenses_Paid();
+
+    double don1 = 0, don2 = 0, don3 = 0, don4 = 0, don5 = 0, don6 = 0, don7 = 0, don8 = 0, don9 = 0, don10 = 0, don11 = 0, don12 = 0;
+    double exp1 = 0, exp2 = 0, exp3 = 0, exp4 = 0, exp5 = 0, exp6 = 0, exp7 = 0, exp8 = 0, exp9 = 0, exp10 = 0, exp11 = 0, exp12 = 0;
+
+
+    double totIncome = 0, totexp = 0;
+
+    foreach (var obj in ListIncome)
+    {
+        totIncome += Convert.ToDouble(obj.Amount);
+    }
+    foreach (var obj in ListExpense)
+    {
+        totexp += Convert.ToDouble(obj.amount_paid);
+    }
+
+    List<DonationViewModel> JanDonList = (from j in _db.GetAllDonation() where j.Date.Month == 1 && j.Date.Year == it.GetNistTime().Year select j).ToList();
+    List<DonationViewModel> FebDonList = (from j in _db.GetAllDonation() where j.Date.Month == 2 && j.Date.Year == it.GetNistTime().Year select j).ToList();
+    List<DonationViewModel> MarDonList = (from j in _db.GetAllDonation() where j.Date.Month == 3 && j.Date.Year == it.GetNistTime().Year select j).ToList();
+    List<DonationViewModel> AprDonList = (from j in _db.GetAllDonation() where j.Date.Month == 4 && j.Date.Year == it.GetNistTime().Year select j).ToList();
+    List<DonationViewModel> MayDonList = (from j in _db.GetAllDonation() where j.Date.Month == 5 && j.Date.Year == it.GetNistTime().Year select j).ToList();
+    List<DonationViewModel> JunDonList = (from j in _db.GetAllDonation() where j.Date.Month == 6 && j.Date.Year == it.GetNistTime().Year select j).ToList();
+    List<DonationViewModel> JulDonList = (from j in _db.GetAllDonation() where j.Date.Month == 7 && j.Date.Year == it.GetNistTime().Year select j).ToList();
+    List<DonationViewModel> AugDonList = (from j in _db.GetAllDonation() where j.Date.Month == 8 && j.Date.Year == it.GetNistTime().Year select j).ToList();
+    List<DonationViewModel> SepDonList = (from j in _db.GetAllDonation() where j.Date.Month == 9 && j.Date.Year == it.GetNistTime().Year select j).ToList();
+    List<DonationViewModel> OctDonList = (from j in _db.GetAllDonation() where j.Date.Month == 10 && j.Date.Year == it.GetNistTime().Year select j).ToList();
+    List<DonationViewModel> NovDonList = (from j in _db.GetAllDonation() where j.Date.Month == 11 && j.Date.Year == it.GetNistTime().Year select j).ToList();
+    List<DonationViewModel> DecDonList = (from j in _db.GetAllDonation() where j.Date.Month == 12 && j.Date.Year == it.GetNistTime().Year select j).ToList();
+
+    for (int x = 0; x < JanDonList.Count; x++)
+    {
+        don1 += Convert.ToDouble(JanDonList[x].Amount);
+    }
+    for (int x = 0; x < FebDonList.Count; x++)
+    {
+        don2 += Convert.ToDouble(FebDonList[x].Amount);
+    }
+    for (int x = 0; x < MarDonList.Count; x++)
+    {
+        don3 += Convert.ToDouble(MarDonList[x].Amount);
+    }
+    for (int x = 0; x < AprDonList.Count; x++)
+    {
+        don4 += Convert.ToDouble(AprDonList[x].Amount);
+    }
+    for (int x = 0; x < MayDonList.Count; x++)
+    {
+        don5 += Convert.ToDouble(MayDonList[x].Amount);
+    }
+    for (int x = 0; x < JunDonList.Count; x++)
+    {
+        don6 += Convert.ToDouble(JunDonList[x].Amount);
+    }
+    for (int x = 0; x < JulDonList.Count; x++)
+    {
+        don7 += Convert.ToDouble(JulDonList[x].Amount) ;
+    }
+    for (int x = 0; x < AugDonList.Count; x++)
+    {
+        don8 += Convert.ToDouble(AugDonList[x].Amount);
+    }
+    for (int x = 0; x < SepDonList.Count; x++)
+    {
+        don9 += Convert.ToDouble(SepDonList[x].Amount);
+    }
+    for (int x = 0; x < OctDonList.Count; x++)
+    {
+        don10 += Convert.ToDouble(OctDonList[x].Amount);
+    }
+    for (int x = 0; x < NovDonList.Count; x++)
+    {
+        don11 += Convert.ToDouble(NovDonList[x].Amount) ;
+    }
+    for (int x = 0; x < DecDonList.Count; x++)
+    {
+        don12 += Convert.ToDouble(DecDonList[x].Amount) ;
+    }
+
+    //Expenses
+    List<Expense_PaidViewModel> JanExpList = (from j in epb.GetAllExpenses_Paid() where j.date_paid.Month == 1 && j.date_paid.Year == it.GetNistTime().Year select j).ToList();
+    List<Expense_PaidViewModel> FebExpList = (from j in epb.GetAllExpenses_Paid() where j.date_paid.Month == 2 && j.date_paid.Year == it.GetNistTime().Year select j).ToList();
+    List<Expense_PaidViewModel> MarExpList = (from j in epb.GetAllExpenses_Paid() where j.date_paid.Month == 3 && j.date_paid.Year == it.GetNistTime().Year select j).ToList();
+    List<Expense_PaidViewModel> AprExpList = (from j in epb.GetAllExpenses_Paid() where j.date_paid.Month == 4 && j.date_paid.Year == it.GetNistTime().Year select j).ToList();
+    List<Expense_PaidViewModel> MayExpList = (from j in epb.GetAllExpenses_Paid() where j.date_paid.Month == 5 && j.date_paid.Year == it.GetNistTime().Year select j).ToList();
+    List<Expense_PaidViewModel> JunExpList = (from j in epb.GetAllExpenses_Paid() where j.date_paid.Month == 6 && j.date_paid.Year == it.GetNistTime().Year select j).ToList();
+    List<Expense_PaidViewModel> JulExpList = (from j in epb.GetAllExpenses_Paid() where j.date_paid.Month == 7 && j.date_paid.Year == it.GetNistTime().Year select j).ToList();
+    List<Expense_PaidViewModel> AugExpList = (from j in epb.GetAllExpenses_Paid() where j.date_paid.Month == 8 && j.date_paid.Year == it.GetNistTime().Year select j).ToList();
+    List<Expense_PaidViewModel> SepExpList = (from j in epb.GetAllExpenses_Paid() where j.date_paid.Month == 9 && j.date_paid.Year == it.GetNistTime().Year select j).ToList();
+    List<Expense_PaidViewModel> OctExpList = (from j in epb.GetAllExpenses_Paid() where j.date_paid.Month == 10 && j.date_paid.Year == it.GetNistTime().Year select j).ToList();
+    List<Expense_PaidViewModel> NovExpList = (from j in epb.GetAllExpenses_Paid() where j.date_paid.Month == 11 && j.date_paid.Year == it.GetNistTime().Year select j).ToList();
+    List<Expense_PaidViewModel> DecExpList = (from j in epb.GetAllExpenses_Paid() where j.date_paid.Month == 12 && j.date_paid.Year == it.GetNistTime().Year select j).ToList();
+
+    for (int x = 0; x < JanExpList.Count; x++)
+    {
+        exp1 += Convert.ToDouble(JanExpList[x].amount_paid);
+    }
+    for (int x = 0; x < FebExpList.Count; x++)
+    {
+        exp2 += Convert.ToDouble(FebExpList[x].amount_paid);
+    }
+    for (int x = 0; x < MarExpList.Count; x++)
+    {
+        exp3 +=Convert.ToDouble(MarExpList[x].amount_paid);
+    }
+    for (int x = 0; x < AprExpList.Count; x++)
+    {
+        exp4 += Convert.ToDouble(AprExpList[x].amount_paid);
+    }
+    for (int x = 0; x < MayExpList.Count; x++)
+    {
+        exp5 +=Convert.ToDouble(MayExpList[x].amount_paid);
+    }
+    for (int x = 0; x < JunExpList.Count; x++)
+    {
+        exp6 += Convert.ToDouble(JunExpList[x].amount_paid);
+    }
+    for (int x = 0; x < JulExpList.Count; x++)
+    {
+        exp7 += Convert.ToDouble(JulExpList[x].amount_paid);
+    }
+    for (int x = 0; x < AugExpList.Count; x++)
+    {
+        exp8 += Convert.ToDouble(AugExpList[x].amount_paid);
+    }
+    for (int x = 0; x < SepExpList.Count; x++)
+    {
+        exp9 += Convert.ToDouble(SepExpList[x].amount_paid);
+    }
+    for (int x = 0; x < OctExpList.Count; x++)
+    {
+        exp10 +=Convert.ToDouble(OctExpList[x].amount_paid);
+    }
+    for (int x = 0; x < NovExpList.Count; x++)
+    {
+        exp11 += Convert.ToDouble(NovExpList[x].amount_paid);
+    }
+    for (int x = 0; x < DecExpList.Count; x++)
+    {
+        exp12 += Convert.ToDouble(DecExpList[x].amount_paid);
+    }
+    //Income
+    don1 = (don1 / totIncome) * 100;
+    don2 =  (don2 / totIncome) * 100;
+    don3 =  (don3 / totIncome) * 100;
+    don4 = (don4 / totIncome) * 100;
+
+    don5 =  (don5 / totIncome) * 100;
+    don6 = (don6 / totIncome) * 100;
+    don7 = (don7 / totIncome) * 100;
+
+    don8 = (don8 / totIncome) * 100;
+    don9 = (don9 / totIncome) * 100;
+    don10 =  (don10 / totIncome) * 100;
+
+    don11 =  (don11 / totIncome) * 100;
+    don12 = (don12 / totIncome) * 100;
+
+    //Expense
+    exp1 = (exp1 / totexp) * 100;
+    exp2 = (exp2 / totexp) * 100;
+    exp3 = (exp3 / totexp) * 100;
+    exp4 = (exp4 / totexp) * 100;
+
+    exp5 = (exp5 / totexp) * 100;
+    exp6 = (exp6 / totexp) * 100;
+    exp7 = (exp7 / totexp) * 100;
+
+    exp8 = (exp8 / totexp) * 100;
+    exp9 = (exp9 / totexp) * 100;
+    exp10 = (exp10 / totexp) * 100;
+
+    exp11 = (exp11 / totexp) * 100;
+    exp12 = (exp12 / totexp) * 100;
+
+    string feed = "Total Donation amount: " + totIncome.ToString("R00.00");
+    string Totexp_ = "Total Expense amount: " + totexp.ToString("R00.00");
+    ViewBag.feed = feed;
+    ViewBag.exp = Totexp_;
+}
+<h2 class="text-center">Line Graph</h2>
+<div class="well">
+    <div style="padding-left:20%">
+        @Html.ActionLink("Back", "FinancialReport", "Treasure", null,new { @class = "btn btn-primary glyphicon glyphicon-arrow-left" })
+    </div>
+    <div style="color:red;" class="text-center">@ViewBag.feed</div>
+    <div style="color:blue" class="text-center">@ViewBag.exp</div>
+    <div id="line_top_x" style="padding-left:10%;"></div>
+</div>
+<br />
+<br />
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', { 'packages': ['line'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Months');
+        data.addColumn('number', 'Expenses');
+        data.addColumn('number', 'Income');
+
+        if(@it.GetNistTime().Month==1)
+        {
+            data.addRows([
+           ['January', @Convert.ToInt32(exp1), @Convert.ToInt32(don1)],
+           ['February', null, null],
+           ['March',    null, null],
+           ['April',    null, null],
+           ['May',      null, null],
+           ['June',     null, null],
+           ['July',     null, null],
+           ['August',   null, null],
+           ['September',null, null],
+           ['October',  null, null],
+           ['November', null, null],
+           ['December', null, null]
+            ]);
+        }
+       else if(@it.GetNistTime().Month==2)
+        {
+            data.addRows([
+           ['January', @Convert.ToInt32(exp1), @Convert.ToInt32(don1)],
+           ['February', @Convert.ToInt32(exp2), @Convert.ToInt32(don2)],
+           ['March', null, null],
+           ['April', null, null],
+           ['May', null, null],
+           ['June', null, null],
+           ['July', null, null],
+           ['August', null, null],
+           ['September', null, null],
+           ['October', null, null],
+           ['November', null, null],
+           ['December', null, null]
+            ]);
+        }
+       else if(@it.GetNistTime().Month==3)
+       {
+           data.addRows([
+          ['January', @Convert.ToInt32(exp1), @Convert.ToInt32(don1)],
+          ['February', @Convert.ToInt32(exp2), @Convert.ToInt32(don2)],
+          ['March', @Convert.ToInt32(exp3), @Convert.ToInt32(don3)],
+          ['April', null, null],
+          ['May', null, null],
+          ['June', null, null],
+          ['July', null, null],
+          ['August', null, null],
+          ['September', null, null],
+          ['October', null, null],
+          ['November', null, null],
+          ['December', null, null]
+           ]);
+       }
+
+       else if(@it.GetNistTime().Month==4)
+       {
+           data.addRows([
+          ['January', @Convert.ToInt32(exp1), @Convert.ToInt32(don1)],
+          ['February', @Convert.ToInt32(exp2), @Convert.ToInt32(don2)],
+          ['March', @Convert.ToInt32(exp3), @Convert.ToInt32(don3)],
+          ['April', @Convert.ToInt32(exp4), @Convert.ToInt32(don4)],
+          ['May', null, null],
+          ['June', null, null],
+          ['July', null, null],
+          ['August', null, null],
+          ['September',null, null],
+          ['October', null, null],
+          ['November', null, null],
+          ['December', null, null]
+           ]);
+       }
+
+       else if(@it.GetNistTime().Month==5)
+       {
+           data.addRows([
+          ['January', @Convert.ToInt32(exp1), @Convert.ToInt32(don1)],
+          ['February', @Convert.ToInt32(exp2), @Convert.ToInt32(don2)],
+          ['March', @Convert.ToInt32(exp3), @Convert.ToInt32(don3)],
+          ['April', @Convert.ToInt32(exp4), @Convert.ToInt32(don4)],
+          ['May', @Convert.ToInt32(exp5), @Convert.ToInt32(don5)],
+          ['June', null, null],
+          ['July', null, null],
+          ['August', null, null],
+          ['September', null, null],
+          ['October', null, null],
+          ['November', null, null],
+          ['December', null, null]
+           ]);
+       }
+       else if(@it.GetNistTime().Month==6)
+       {
+           data.addRows([
+          ['January', @Convert.ToInt32(exp1), @Convert.ToInt32(don1)],
+          ['February', @Convert.ToInt32(exp2), @Convert.ToInt32(don2)],
+          ['March', @Convert.ToInt32(exp4), @Convert.ToInt32(don3)],
+          ['April', @Convert.ToInt32(exp4), @Convert.ToInt32(don4)],
+          ['May', @Convert.ToInt32(exp5), @Convert.ToInt32(don5)],
+          ['June', @Convert.ToInt32(exp6), @Convert.ToInt32(don6)],
+          ['July', null, null],
+          ['August', null, null],
+          ['September',null, null],
+          ['October', null, null],
+          ['November', null, null],
+          ['December', null, null]
+           ]);
+       }
+       else if(@it.GetNistTime().Month==7)
+       {
+          data.addRows([
+          ['January', @Convert.ToInt32(exp1), @Convert.ToInt32(don1)],
+          ['February', @Convert.ToInt32(exp2), @Convert.ToInt32(don2)],
+          ['March', @Convert.ToInt32(exp3), @Convert.ToInt32(don3)],
+          ['April', @Convert.ToInt32(exp4), @Convert.ToInt32(don4)],
+          ['May', @Convert.ToInt32(exp5), @Convert.ToInt32(don5)],
+          ['June', @Convert.ToInt32(exp6), @Convert.ToInt32(don6)],
+          ['July', @Convert.ToInt32(exp7), @Convert.ToInt32(don7)],
+          ['August', null, null],
+          ['September', null, null],
+          ['October', null, null],
+          ['November', null, null],
+          ['December', null, null]
+           ]);
+       }
+
+       else if(@it.GetNistTime().Month==8)
+       {
+           data.addRows([
+          ['January', @Convert.ToInt32(exp1), @Convert.ToInt32(don1)],
+          ['February', @Convert.ToInt32(exp2), @Convert.ToInt32(don2)],
+          ['March', @Convert.ToInt32(exp3), @Convert.ToInt32(don3)],
+          ['April', @Convert.ToInt32(exp4), @Convert.ToInt32(don4)],
+          ['May', @Convert.ToInt32(exp5), @Convert.ToInt32(don5)],
+          ['June', @Convert.ToInt32(exp6), @Convert.ToInt32(don6)],
+          ['July', @Convert.ToInt32(exp7), @Convert.ToInt32(don7)],
+          ['August', @Convert.ToInt32(exp8), @Convert.ToInt32(don8)],
+          ['September', null, null],
+          ['October', null, null],
+          ['November', null, null],
+          ['December', null, null]
+           ]);
+       }
+       else if(@it.GetNistTime().Month==9)
+       {
+           data.addRows([
+          ['January', @Convert.ToInt32(exp1), @Convert.ToInt32(don1)],
+          ['February', @Convert.ToInt32(exp2), @Convert.ToInt32(don2)],
+          ['March', @Convert.ToInt32(exp3), @Convert.ToInt32(don3)],
+          ['April', @Convert.ToInt32(exp4), @Convert.ToInt32(don4)],
+          ['May', @Convert.ToInt32(exp5), @Convert.ToInt32(don5)],
+          ['June', @Convert.ToInt32(exp6), @Convert.ToInt32(don6)],
+          ['July', @Convert.ToInt32(exp7), @Convert.ToInt32(don7)],
+          ['August', @Convert.ToInt32(exp8), @Convert.ToInt32(don8)],
+          ['September', @Convert.ToInt32(exp9), @Convert.ToInt32(don9)],
+          ['October',  null, null],
+          ['November', null, null],
+          ['December', null, null]
+           ]);
+       }
+       else if(@it.GetNistTime().Month==10)
+       {
+           data.addRows([
+          ['January', @Convert.ToInt32(exp1), @Convert.ToInt32(don1)],
+          ['February', @Convert.ToInt32(exp2), @Convert.ToInt32(don2)],
+          ['March', @Convert.ToInt32(exp3), @Convert.ToInt32(don3)],
+          ['April', @Convert.ToInt32(exp4), @Convert.ToInt32(don4)],
+          ['May', @Convert.ToInt32(exp5), @Convert.ToInt32(don5)],
+          ['June', @Convert.ToInt32(exp6), @Convert.ToInt32(don6)],
+          ['July', @Convert.ToInt32(exp7), @Convert.ToInt32(don7)],
+          ['August', @Convert.ToInt32(exp8), @Convert.ToInt32(don8)],
+          ['September', @Convert.ToInt32(exp9), @Convert.ToInt32(don9)],
+          ['October', @Convert.ToInt32(10), @Convert.ToInt32(don10)],
+          ['November', null, null],
+          ['December', null, null]
+           ]);
+       }
+       else if(@it.GetNistTime().Month==11)
+       {
+           data.addRows([
+          ['January', @Convert.ToInt32(exp1), @Convert.ToInt32(don1)],
+          ['February', @Convert.ToInt32(exp2), @Convert.ToInt32(don2)],
+          ['March', @Convert.ToInt32(exp3), @Convert.ToInt32(don3)],
+          ['April', @Convert.ToInt32(exp4), @Convert.ToInt32(don4)],
+          ['May', @Convert.ToInt32(exp5), @Convert.ToInt32(don5)],
+          ['June', @Convert.ToInt32(exp6), @Convert.ToInt32(don6)],
+          ['July', @Convert.ToInt32(exp7), @Convert.ToInt32(don7)],
+          ['August', @Convert.ToInt32(exp8), @Convert.ToInt32(don8)],
+          ['September', @Convert.ToInt32(exp9), @Convert.ToInt32(don9)],
+          ['October', @Convert.ToInt32(exp10), @Convert.ToInt32(don10)],
+          ['November', @Convert.ToInt32(exp11), @Convert.ToInt32(don11)],
+          ['December', null, null]
+           ]);
+       }
+       else if(@it.GetNistTime().Month==12)
+       {
+           data.addRows([
+          ['January', @Convert.ToInt32(exp1), @Convert.ToInt32(don1)],
+          ['February', @Convert.ToInt32(exp2), @Convert.ToInt32(don2)],
+          ['March', @Convert.ToInt32(exp3), @Convert.ToInt32(don3)],
+          ['April', @Convert.ToInt32(exp4), @Convert.ToInt32(don4)],
+          ['May', @Convert.ToInt32(exp5), @Convert.ToInt32(don5)],
+          ['June', @Convert.ToInt32(exp6), @Convert.ToInt32(don6)],
+          ['July', @Convert.ToInt32(exp7), @Convert.ToInt32(don7)],
+          ['August', @Convert.ToInt32(exp8), @Convert.ToInt32(don8)],
+          ['September', @Convert.ToInt32(exp9), @Convert.ToInt32(don9)],
+          ['October', @Convert.ToInt32(exp10), @Convert.ToInt32(don10)],
+          ['November', @Convert.ToInt32(exp11), @Convert.ToInt32(don11)],
+          ['December', @Convert.ToInt32(exp12), @Convert.ToInt32(don12)]
+           ]);
+       }
+
+
+            var options = {
+            chart: {
+                title: 'Project Progress Report',
+                subtitle: 'Per Month'
+            },
+            width: 1100,
+            height: 600,
+            axes: {
+                x: {
+                    0: { side: 'top' }
+                }
+            }
+        };
+
+        var chart = new google.charts.Line(document.getElementById('line_top_x'));
+
+        chart.draw(data, options);
+    }
+</script>

@@ -1,0 +1,164 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title> Secretary Page | Whsic</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Augment Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- Bootstrap Core CSS -->
+    <link href="~/css/bootstrap.min.css" rel='stylesheet' type='text/css' />
+    <!-- Custom CSS -->
+    <link href="~/css/style.css" rel='stylesheet' type='text/css' />
+    <!-- Graph CSS -->
+    <link href="~/css/font-awesome.css" rel="stylesheet">
+    <!-- jQuery -->
+    <link href='//fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+    <!-- lined-icons -->
+    <link rel="stylesheet" href="~/css/icon-font.min.css" type='text/css' />
+    <!-- //lined-icons -->
+    <script src="~/js/jquery-1.10.2.min.js"></script>
+    <script src="~/js/css3clock.js"></script>
+    <!--Easy Pie Chart-->
+    <!--skycons-icons-->
+    <script src="~/js/skycons.js"></script>
+
+    <script src="js/jquery.easydropdown.js"></script>
+
+    <!--//skycons-icons-->
+</head>
+<body>
+    <div class="page-container">
+        <!--/content-inner-->
+        <div class="left-content">
+            <div class="inner-content">
+                <!-- header-starts -->
+                <div class="header-section">
+                    <!--menu-right-->
+                    <div class="top_menu">
+                        <div class="profile_details_left">
+                            <ul class="nofitications-dropdown">
+                                <li class="dropdown note dra-down">
+                                    <div id="dd" class="wrapper-dropdown-3" tabindex="1" style="height:90px">
+
+                                    </div>
+
+                                </li>
+
+
+                            </ul>
+                        </div>
+                        <div>
+                            <ul style="position:center">
+                                <li> <span>@Html.Partial("_LoginPartial")</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--//menu-right-->
+                    <div class="clearfix"></div>
+                </div>
+                <!-- //header-ends -->
+                <div class="container body-content">
+                    @RenderBody()
+                </div>
+                <!--footer section start-->
+                <footer>
+                    <p>&copy 2016 Augment . All Rights Reserved | Design by debuggers</p>
+                </footer>
+            </div>
+        </div>
+        <!--//content-inner-->
+        <!--/sidebar-menu-->
+        <div class="sidebar-menu">
+            <header class="logo">
+                <a href="#" class="sidebar-icon"> <span class="fa fa-bars"></span> </a> <a href="#">
+                <span id="logo"><h1>Secretary</h1></span>
+                <!--<img id="logo" src="" alt="Logo"/>-->
+                </a>
+            </header>
+            <div style="border-top:1px solid rgba(69, 74, 84, 0.7)"></div>
+
+            <!--//down-->
+            <div class="menu">
+                <ul id="menu">
+                    <li><span>@Html.ActionLink("Projects", "GetAllProject", "Project")</span></li>
+                    <li><span>@Html.ActionLink("Pastor's busy Time", "Create", "Availability")</span></li>
+                    <li id="menu-academico">
+                    <li><span>@Html.ActionLink("Members", "Index", "Member")</span></li>
+                    <li><span>@Html.ActionLink("Church Programs", "Index", "Program")</span></li>
+                    <li>
+                        <span>@Html.ActionLink("Vacancies", null)</span>
+                        <ul id="menu-academico-sub">
+                            <li id="menu-academico-avaliacoes">@Html.ActionLink("Jobs", "Index", "Job")</li>
+                            <li id="menu-academico-boletim">@Html.ActionLink("Subscribers", "Index", "Subscribe")</li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <span>@Html.ActionLink("Donor",null)</span>
+                        <ul id="menu-academico-sub">
+                            <li id="menu-academico-avaliacoes">@Html.ActionLink("Donors", "Index", "Donor")</li>
+                            <li id="menu-academico-boletim">@Html.ActionLink("Type of Donors", "Index", "Donortype")</li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <span>@Html.ActionLink("Donation", null)</span>
+                        <ul id="menu-academico-sub">
+                            <li id="menu-academico-boletim">@Html.ActionLink("Type of Donations", "Index", "Donationtype")</li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <span>@Html.ActionLink("Upload Event", null)</span>
+                        <ul id="menu-academico-sub">
+                            <li id="menu-academico-avaliacoes">@Html.ActionLink("Upload Contents", "Index", "ProgramUpload")</li>
+                            <li id="menu-academico-boletim">@Html.ActionLink("Rejected Uploads", "Index", "RejectedUpload")</li>
+                        </ul>
+                    </li>
+                    <li><span>@Html.ActionLink("Upload Image to Gallery", "Create", "Gallery")</span></li>
+                    <li><span>@Html.ActionLink("Events", "Index", "Events")</span></li>
+                    <li><span>@Html.ActionLink("Guests", "Index", "Guests")</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <script>
+							var toggle = true;
+
+							$(".sidebar-icon").click(function() {
+							  if (toggle)
+							  {
+								$(".page-container").addClass("sidebar-collapsed").removeClass("sidebar-collapsed-back");
+								$("#menu span").css({"position":"absolute"});
+							  }
+							  else
+							  {
+								$(".page-container").removeClass("sidebar-collapsed").addClass("sidebar-collapsed-back");
+								setTimeout(function() {
+								  $("#menu span").css({"position":"relative"});
+								}, 400);
+							  }
+
+											toggle = !toggle;
+										});
+    </script>
+    <!--js -->
+    @*<link rel="stylesheet" href="~/css/vroom.css">
+    <script type="text/javascript" src="~/js/vroom.js"></script>
+    <script type="text/javascript" src="~/js/TweenLite.min.js"></script>
+    <script type="text/javascript" src="~/js/CSSPlugin.min.js"></script>*@
+    <script src="~/js/jquery.nicescroll.js"></script>
+    <script src="~/js/scripts.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    @*<script src="~js/bootstrap.min.js"></script>*@
+    @RenderSection("scripts", required: false)
+</body>
+</html>

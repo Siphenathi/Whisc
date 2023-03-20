@@ -1,0 +1,117 @@
+﻿@model WHSIC.Model.DonorViewModel
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Secretary/_DashBoard.cshtml";
+}
+
+<h2>Add</h2>
+
+
+@using (Html.BeginForm("Create","Donor",FormMethod.Post,new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" })) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Donor</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DonortypeID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.DropDownList("DonortypeID", (SelectList)ViewBag.Donortype, "---Select DonorType--", new { @style = "width:262px;height:38px;" })
+                @Html.ValidationMessageFor(model => model.DonortypeID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Contact, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Contact, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Contact, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.tax_no, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.tax_no, new { htmlAttributes = new { @class = "form-control",placeholder="If Applicable" } })
+                @Html.ValidationMessageFor(model => model.tax_no, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" style="">
+            @Html.Label("Browse Image", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="fileUpload btn btn-primary" style="background-color: #052963; color: #00C6D7;">
+                <input type="file" @*required=""*@ onchange="readURL(this);" name="File" accept="image/gif, image/jpeg, image/png" class="upload" />
+            </div>
+
+            <div class="col-md-10">
+                <img id="blah" src="#" alt="" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+@if (ViewBag.m != null)
+{
+    <script type="text/javascript">
+            alert('@ViewBag.m');
+    </script>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e)
+            {
+                $('#blah')
+                    .attr('src', e.target.result)
+                    .width(200)
+                    .height(200);
+
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

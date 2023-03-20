@@ -1,0 +1,55 @@
+﻿@model WHSIC.Data.EventGuest
+@{
+    ViewBag.Title = "Postpone";
+}
+<br />
+<br />
+<br />
+<br />
+<h3 class="text-center">Hi @ViewBag.gName </h3>
+<h4 class="text-center">Click Confirm If You Are Coming to @ViewBag.eName event</h4>
+@using (Html.BeginForm())
+{
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10" >
+            <input type="text" name="txtguest" value="@ViewBag.gName" hidden />
+            <input type="text" name="txtguestID" value="@ViewBag.gID" hidden />
+            <input type="text" name="txtevent" value="@ViewBag.eName" hidden />
+            <input type="text" name="txteventID" value="@ViewBag.eID" hidden />
+
+            @if (@ViewBag.feedback == "You already confirmed, you can only confirm once for each event!")
+            {
+                <div style="padding-left:35%">
+                    <input type="submit" value="Confirm" class="btn btn-primary" disabled />
+                </div>
+            }
+            @if (@ViewBag.feedback != "You already confirmed, you can only confirm once for each event!")
+            {
+                <div style="padding-left:35%">
+                    <input type="submit" value="Confirm" class="btn btn-primary" />
+                </div>
+            }
+        </div>
+    </div>
+}
+@if (ViewBag.feedback != null)
+{
+    <script type="text/javascript">
+        alert("@ViewBag.feedback")
+    </script>
+}
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+
+
+
+
+
+
+

@@ -1,0 +1,161 @@
+﻿@model WHSIC.Model.FREportViewModel
+@using WHSIC.Model;
+@using WHSIC.Data;
+@using WHSIC.BusinessLogic;
+@{
+    ViewBag.Title = "Index";
+    ApplicationDbContext db = new ApplicationDbContext();
+    ExpenseBusiness eb = new ExpenseBusiness();
+    DonationTypeBusiness dtype = new DonationTypeBusiness();
+    List<DonationTypeViewModel> listDtype = dtype.GetAllDonationType();
+    List<ExpenseViewModel> expList = eb.GetAllExpenses();
+    List<DonationViewModel> listIncome = Model.Income;
+    List<Expense_PaidViewModel> listexpense = Model.Expense;
+    List<Asset_Rentalz> Rental = Model.Rental;
+    decimal TotalIncome = 0, totExpense = 0, Net_Income = 0, totbal = 0, totrev = 0,totrent=0;
+    ViewBag.des = listexpense.Count;
+}
+
+<h2 class="text-center">Income Statement <br/>  
+    for @Model.StartDate.ToShortDateString() to @Model.EndDate.ToShortDateString()
+</h2>
+
+@using (Html.BeginForm("Report", "FinancialReport", FormMethod.Get))
+{
+    <div>
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.HiddenFor(m => m.StartDate)
+                @Html.HiddenFor(m => m.EndDate)
+                @if(listIncome.Count != 0 && listexpense.Count != 0)
+                {
+                    <button class="glyphicon glyphicon-print" style="Font-size:40px;" value="Print" data-placement="top" title="Click here to Print" data-toggle="tooltip"> </button>
+                }
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <br />
+    <br />
+    <table class="table table-bordered table-hover table-striped" style="border:inset">
+        <tr>
+            <td>
+                <b>Revenue</b>
+            </td>
+            <td><b>Amount</b></td>
+            <td><b>Total Amount</b></td>
+        </tr>
+        @for (int x = 0; x < Model.Income.Count; x++)
+        {
+            <tr hidden>
+                @Html.HiddenFor(m => Model.Income[x].DonationID)
+            </tr>
+        }
+        @for(int x=0;x<Rental.Count;x++)
+        {
+            totrev += Rental[x].Amount;
+            totrent += Rental[x].Amount;
+          <tr hidden>
+              @Html.HiddenFor(m =>Model.Rental[x].Rental_code)
+          </tr>
+       }
+     @for (int x = 0; x < listDtype.Count; x++)
+     {
+         decimal totTypeDon = 0;
+         List<DonationViewModel> listDon = Model.Income.FindAll(p => p.DonationtypeID == listDtype[x].DonationtypeID);
+
+        <tr>
+            <td class="text-center">
+                @listDtype[x].Description
+            </td>
+            @for(int d = 0; d < listDon.Count; d++)
+            {
+                totTypeDon += listDon[d].Amount;
+            }
+           @{ totrev += totTypeDon;}
+            <td>@totTypeDon.ToString("R00.00")</td>
+            <td></td>
+        </tr>
+      }
+      
+        
+        
+       
+            <tr>
+                <td class="text-center">Rentals</td>
+                <td>@totrent.ToString("R00.00") </td>
+                <td> </td>
+            </tr>
+       
+        <tr>
+            <td>
+                <b>Total Revenues</b>
+            </td>
+            <td></td>
+            <td>
+                <b>@totrev.ToString("R00.00")</b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b> Expenses</b>
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+        @for (int x = 0; x < Model.Expense.Count; x++)
+        {
+            <tr hidden>
+                @Html.HiddenFor(m => Model.Expense[x].paid_exp_id)
+            </tr>
+        }
+        @for (int x = 0; x < expList.Count; x++)
+        {
+            decimal totTypeExp = 0;
+            List<Expense_PaidViewModel> listExp = Model.Expense.FindAll(p => p.exp_id == expList[x].exp_id);
+            <tr>
+                <td class="text-center">
+                    @expList[x].desc
+                </td>
+                @for (int e = 0; e < listExp.Count; e++)
+                {
+                    totTypeExp += listExp[e].amount_paid;
+                }
+                @{ totExpense += totTypeExp;
+                    Net_Income = totrev - totExpense;}
+                <td>@totTypeExp.ToString("R00.00")</td>
+                <td></td>
+            </tr>
+      }
+        <tr>
+            <td>
+                <b>Total Expenses</b>
+            </td>
+            <td></td>
+            <td>
+                <b>@totExpense.ToString("R00.00")</b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Net Income  </b>
+            </td>
+            <td></td>
+            <td>
+                <b>@Net_Income.ToString("R00.00")</b>
+            </td>
+            
+        </tr>
+
+    </table>
+    <br />
+    <br />
+    <br />
+
+}
+<script>
+	$(function() {
+		$( "#datepicker" ).datepicker();
+     });
+</script>

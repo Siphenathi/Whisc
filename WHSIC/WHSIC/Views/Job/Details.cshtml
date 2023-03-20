@@ -1,0 +1,71 @@
+﻿@model WHSIC.Data.Job
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Secretary/_DashBoard.cshtml";
+}
+<h2>Details</h2>
+<div class="well">
+        <h4>Job</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Position)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Position)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Requirements)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Requirements)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Duties)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Duties)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ClosingDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ClosingDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Salary)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Salary)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PositionStatus)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PositionStatus)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ApplyingInfo)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ApplyingInfo)
+            </dd>
+
+        </dl>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.JobID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</div>

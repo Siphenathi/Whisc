@@ -1,0 +1,44 @@
+﻿
+@using PagedList.Mvc
+@model PagedList.IPagedList<WHSIC.Model.ServiceTypeViewModel>
+@{
+    ViewBag.Title = "GetAllServiceType";
+    Layout = "~/Views/Treasure/_DashBoard.cshtml";
+}
+
+<h2 class="text-center">Types of Service</h2>
+<div class="well">
+    <p>
+        @Html.ActionLink("Create New", "CreateServiceType")
+    </p>
+    <table class="table table-bordered table-hover table-striped">
+        <tr>
+            <th>
+                Name of Service type
+            </th>
+            <th>
+                Is the church in need of this service type
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dismiss)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "UpdateServiceType", new { id = item.TypeID }) |
+                    @Html.ActionLink("Delete", "DeleteServiceType", new { id = item.TypeID })
+                </td>
+            </tr>
+        }
+    </table>
+                <div class="text-center">
+                     @Html.PagedListPager(Model, page => Url.Action("GetAllServiceType", new { page, pageSize = Model.PageSize }))
+                </div>
+</div>

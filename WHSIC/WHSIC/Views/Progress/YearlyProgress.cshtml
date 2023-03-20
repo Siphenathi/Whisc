@@ -1,0 +1,66 @@
+﻿@model WHSIC.Model.ProjectProgressViewModel
+@{ 
+    ViewBag.Title = "Add Progress";
+    Layout = "~/Views/Secretary/_DashBoard.cshtml";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Progress</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        <div class="form-group">
+            @Html.LabelFor(model => model.Duration, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.DropDownList("Duration", (SelectList)ViewBag.years, "Select Year", new { @style = "width:252px;height:38px;" })
+                @Html.ValidationMessageFor(model => model.Duration, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Months Worked", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.DropDownList("PeroidWorked", new List<SelectListItem>
+                  { new SelectListItem { Text = "1 Month", Value = "1" },
+                  new SelectListItem{ Text = "2 Months", Value = "2" },
+                  new SelectListItem{ Text = "3 Months", Value = "3" },
+                  new SelectListItem{ Text = "4 Months", Value = "4" },
+                  new SelectListItem{ Text = "5 Months", Value = "5" },
+                  new SelectListItem{ Text = "6 Months", Value = "6" },
+                  new SelectListItem{ Text = "7 Months", Value = "7" },
+                  new SelectListItem{ Text = "8 Months", Value = "8" },
+                  new SelectListItem{ Text = "9 Months", Value = "9" },
+                  new SelectListItem{ Text = "10 Months", Value = "10" },
+                  new SelectListItem{ Text = "11 Months", Value = "11" },
+                  new SelectListItem{ Text = "12 Months", Value = "12" }
+                  }
+                   , "Select period", new { @style = "width:252px;height:38px;" }
+                  )
+                @Html.ValidationMessageFor(model => model.PeroidWorked, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+        <div>
+            <input type="text" value="@ViewBag.projIDY" name="passIDY" hidden />
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Add" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+@if(ViewBag.feed!=null)
+{
+    <script type="text/javascript">
+        alert("@ViewBag.feed")
+    </script>
+}
+<div>
+    @Html.ActionLink("Back", "GetAllProgress", "Progress", new { projectID = ViewBag.projIDY }, new { @class = "btn btn-primary 	fa fa-arrow-circle-left" })
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

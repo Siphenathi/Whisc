@@ -1,0 +1,38 @@
+﻿@model IEnumerable<WHSIC.Model.PositionViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Admin/_DashBoard.cshtml";
+}
+<br/>
+<div class="well">
+<h2 class="text-center">List of Positions</h2>
+<hr/>
+<p>
+    @Html.ActionLink("Create New", "AddPosition")
+</p>
+<table class="table table-bordered table-hover table-striped">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "UpdatePosition", new { id = item.PositionID }) |
+                @Html.ActionLink("Delete", "DeletePosition", new { id = item.PositionID })
+            </td>
+        </tr>
+    }
+
+</table>
+</div>

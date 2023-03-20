@@ -1,0 +1,68 @@
+﻿@model WHSIC.Model.ExpenseViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Treasure/_DashBoard.cshtml";
+}
+
+<h2 class="text-center">Details</h2>
+<div class="well">
+
+    <h4>of Expense</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.desc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.desc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.payment_due_date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.payment_due_date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.exp_acc_no)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.exp_acc_no)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.from_acc_no)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.from_acc_no)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.amount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.amount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.recurring)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.recurring)
+        </dd>
+
+
+    </dl>
+
+    <p>
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</div>

@@ -1,0 +1,120 @@
+﻿@model WHSIC.Model.MyDonations
+@using WHSIC.Model;
+@using WHSIC.BusinessLogic;
+@{
+    ViewBag.Title = "GetAllMyDonations";
+}
+<br />
+<br />
+<br />
+<br />
+<h2 class="text-center">My Previous Service Donations</h2>
+@if(ViewBag.c != null)
+{
+    <table class="table table-bordered table-hover table-striped">
+        <tr>
+            <td>
+                Service Name
+            </td>
+            <td>
+                Service Type
+            </td>
+            <td>
+                Quantity
+            </td>
+            <td>
+                Delivery Date
+            </td>
+            <td>
+                Status
+            </td>
+            
+        </tr>
+        @foreach(var s in Model.Service)
+        {
+            ServiceTypeBusiness typeb = new ServiceTypeBusiness();
+            ServiceTypeViewModel type = typeb.GetbyID(s.TypeID);
+
+            string feed = "Service Not Recieved";
+            if(s.Status==true)
+            {
+                feed="Service Recieved";
+            }
+         <tr>
+           <td>
+               @s.Service_name
+           </td>
+             <td>
+                 @s.TypeDesc
+             </td>
+             <td>
+                 @s.Quantity
+             </td>
+             <td>
+                 @s.Date.ToShortDateString()
+             </td>
+             <td>
+                 @feed
+             </td>
+         </tr>
+        }
+    </table>
+}
+@if(ViewBag.c == null)
+{
+    <div class="text-center" style="color:red">
+        <h3>You have not yet provided a service</h3>
+    </div>
+}
+<br />
+<h2 class="text-center">My Previous Cash Donations</h2>
+
+
+@if (ViewBag.dn != null)
+{
+    <table class="table table-bordered table-hover table-striped">
+        <tr>
+            <td>
+                Donation Type
+            </td>
+            <td>
+                Payment Method
+            </td>
+            <td>
+                Date
+            </td>
+            <td>
+                Amount
+            </td>
+        </tr>
+        @foreach (var s in Model.CashDonations)
+        {
+            DonationTypeBusiness dt = new DonationTypeBusiness();
+            DonationTypeViewModel don = dt.GetbyID(s.DonationtypeID);
+            <tr>
+                <td>
+                    @don.Description
+                </td>
+                <td>
+                    @s.Payment_Method
+                </td>
+                
+                <td>
+                    @s.Date.ToShortDateString()
+                </td>
+                <td>
+                    @s.Amount
+                </td>
+            </tr>
+        }
+    </table>
+    <br />
+    <br />
+}
+@if (ViewBag.dn == null)
+{
+    <div class="text-center" style="color:red">
+        <h3>You have not yet provided a monetary  donation</h3>
+    </div>
+    <br />
+}

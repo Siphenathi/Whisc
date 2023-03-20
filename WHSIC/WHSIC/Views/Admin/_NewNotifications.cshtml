@@ -1,0 +1,20 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<WHSIC.Model.NotificationViewModel>
+<table class="table table-bordered table"> 
+
+@foreach (var item in Model)
+{
+    WHSIC.Controllers.TimeAgo ago = new WHSIC.Controllers.TimeAgo();
+    
+    string date = item.DateTime.ToShortDateString();
+    string time = item.DateTime.ToShortTimeString();
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Text)
+            <br/>
+            <strong style="color: #c0c0c0">@ago.Time_Ago(item.DateTime)</strong>
+            @Html.ActionLink("Remove", "RemoveNot","Admin", new {id = item.NotID}, new {@class = "glyphicon glyphicon-remove"})
+        </td>
+    </tr>
+}
+</table>

@@ -1,0 +1,81 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<WHSIC.Model.ProjectViewModel>
+@{
+    ViewBag.Title = "GetAllProject";
+    Layout = "~/Views/Secretary/_DashBoard.cshtml";
+}
+
+<h2 class="text-center">All Projects</h2>
+<div class="well">
+<p>
+    @Html.ActionLink("Add New", "AddProject", null, new { @class = "btn btn-primary fa fa-tasks", @style = "Font-size:25px;" })
+</p>
+<table class="table table-bordered table-hover table-striped">
+    <tr>
+        <th>
+            Project Name
+        </th>
+        <th>
+            Project Manager
+        </th>
+        <th>
+            Duration
+        </th>
+        <th>
+            Start Date
+        </th>
+        <th>
+            End Date
+        </th>
+        <th>
+            Physical Address
+        </th>
+        <th>
+            Contact
+        </th>
+        <th>
+           Progress
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProjectName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Project_Manager)
+        </td>
+        <td>
+            @item.Duration @item.DurationFormat
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.StartDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhysicalAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Contact)
+        </td>
+        <td> @Html.ActionLink("View", "GetAllProgress", "Progress", new { projectID = item.ProjectID},new {@class= "fa fa-line-chart" })</td>
+        <td>
+            @Html.ActionLink("Edit", "EditProject", new { id=item.ProjectID }) |
+            @Html.ActionLink("Details", "ProjectDetails", new { id=item.ProjectID }) |
+            @Html.ActionLink("Delete", "DeleteProject", new { id=item.ProjectID })
+        </td>
+    </tr>
+}
+</table>
+    <div class="text-center">
+        @Html.PagedListPager(Model, page => Url.Action("GetAllProject", new { page, pageSize = Model.PageSize }))
+    </div>
+</div>
+<br />
+<br />

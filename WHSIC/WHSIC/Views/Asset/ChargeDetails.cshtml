@@ -1,0 +1,43 @@
+﻿@model WHSIC.Data.AssetCharge
+@{
+    ViewBag.Title = "ChargeDetails";
+    Layout = "~/Views/Treasure/_DashBoard.cshtml";
+}
+
+<h2>Details for</h2>
+<div class="well">
+    <div>
+        <h4>Asset Charges</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayName("Asset Name")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Assets.AName)
+            </dd>
+
+            <dt>
+                @Html.DisplayName("Rental Amount")
+            </dt>
+
+            <dd>
+                @Model.Rental_Amount.ToString("R0.00")
+            </dd>
+
+            <dt>
+                @Html.DisplayName("Penalty Rate")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PenaltyRate)%
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Back", "RentalAssets")
+    </p>
+</div>
+

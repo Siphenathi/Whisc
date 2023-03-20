@@ -1,0 +1,48 @@
+﻿@model IEnumerable<WHSIC.Data.Guest>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Secretary/_DashBoard.cshtml";
+}
+<h2>List of Guests</h2>
+<div class="well">
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table table-bordered table-hover table-striped">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Guestemail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Contact)
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Guestemail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Contact)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.GuestID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.GuestID })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+

@@ -1,0 +1,67 @@
+﻿@model IEnumerable<WHSIC.Model.Expense_PaidViewModel>
+@{
+    decimal TotalIncome = 0, totExpense = 0, Net_Income = 0, totbal = 0;
+}
+
+<h2 class="text-center"> Expenses</h2>
+<table class="table table-bordered table-hover table-striped" style="border:inset">
+    <tr>
+        <th>
+
+            Date&nbsp;&nbsp;
+        </th>
+        <th>
+            Description&nbsp;&nbsp;&nbsp;&nbsp;
+        </th>
+        <th>
+            Amount&nbsp;&nbsp;&nbsp;&nbsp;
+        </th>
+        <th>
+            Outstanding Balance
+        </th>
+    </tr>
+
+   @foreach (var item in Model)
+   {
+       WHSIC.Model.ExpenseViewModel exp = new WHSIC.Model.ExpenseViewModel();
+       WHSIC.BusinessLogic.ExpenseBusiness eb = new WHSIC.BusinessLogic.ExpenseBusiness();
+       exp = eb.GetAllExpenses().Find(x => x.exp_id == item.exp_id);
+       decimal rem_amount = 0, totcost = exp.amount;
+       rem_amount = exp.amount - item.amount_paid;
+       totbal = totbal + rem_amount;
+       TempData["rem"] = rem_amount.ToString("R00.00");
+
+       TempData["TotBalance"] = totbal;
+
+       WHSIC.BusinessLogic.ExpenseBusiness exb = new WHSIC.BusinessLogic.ExpenseBusiness();
+
+       totExpense += item.amount_paid;
+       TempData["totExpense"] = totExpense.ToString("R0.00");
+       Net_Income = TotalIncome - totExpense;
+       TempData["Net"] = Net_Income.ToString("R0.00");
+    <tr>
+        <td>
+            @item.date_paid.ToShortDateString()
+        </td>
+        <td>
+            @item.ExpenseDesc&nbsp;&nbsp;
+        </td>
+        <td>
+            @item.amount_paid.ToString("R0.00")
+        </td>
+
+        <td>@TempData["rem"]</td>
+    </tr>
+   }
+
+<tr>
+    <td>
+        <b>Total Expense</b>
+    </td>
+    <td></td>
+    <td>
+        <b>@TempData["totExpense"]</b>
+    </td>
+    <td><b>@TempData["TotBalance"]</b></td>
+</tr>
+</table>

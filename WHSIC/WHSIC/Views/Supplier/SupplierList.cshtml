@@ -1,0 +1,56 @@
+﻿@model IEnumerable<WHSIC.Data.Supplier>
+
+@{
+    ViewBag.Title = "SupplierList";
+    Layout = "~/Views/Treasure/_DashBoard.cshtml";
+}
+
+<h2>SupplierList</h2>
+<div class="well">
+    <p>
+        @Html.ActionLink("Create New", "AddSupplier")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.contact)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.address)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.contact)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.address)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.supply_code }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.supply_code })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+
+

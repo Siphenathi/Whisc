@@ -1,0 +1,111 @@
+﻿@model IEnumerable<WHSIC.Data.Event>
+@using WHSIC.Controllers 
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Secretary/_DashBoard.cshtml";
+
+    InternetTime it = new InternetTime();
+
+    DateTime date = it.GetNistTime();
+}
+   
+
+<h2>Events</h2>
+<div>
+    @using (Html.BeginForm("Index", "Events"))
+    {
+        @Html.DropDownList("Drop", new MultiSelectList(ViewBag.Evname, "EventID", "EventName"), "---Select Event---", new { @*@class = "form-control "*@ })
+        <div>
+            <input type="submit" value="Search" class="btn btn-primary" />
+        </div>
+    }
+</div>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-hover table-bordered table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.EventName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Venue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </th>
+    
+        <th>@Html.DisplayName("Attendence")</th>
+        <th>@Html.DisplayName("Edit")</th>
+        <th>@Html.DisplayName("Invite")</th>
+        <th>@Html.DisplayName("Postpone")</th>
+        <th>@Html.DisplayName("Cancel")</th>
+        <th>@Html.DisplayName("Details")</th>
+       
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr style="max-height:5px">
+            <td>
+                @Html.DisplayFor(modelItem => item.EventName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Venue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.StartTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndTime)
+                </td>*@
+            <td>
+                @Html.ActionLink("View", "EventAttendace", new { id = item.EventID, button = "Edit" }, new { @*@class = "btn btn-primary btn-sm"*@ })
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.EventID, button = "Edit" }, new { @*@class = "btn btn-primary btn-sm"*@ })&nbsp;
+            </td>
+                <td>
+                    @if (item.Invite == false)
+                    {
+                    @Html.ActionLink("Invite", "Invite", new { id = item.EventID, button = "BroadCast" }, new { @*@class = "btn btn-primary btn-sm"*@ })
+                    } 
+                </td>
+                 
+            
+            <td>
+                @Html.ActionLink("Postpone", "Edit", new { id = item.EventID, button = "Postpone" }, new { @*@class = "btn btn-primary btn-sm"*@ })&nbsp;
+            </td>
+            <td>
+                @if (item.StartDate > date)
+                {
+                    @Html.ActionLink("Cancel", "Delete", new { id = item.EventID }, new { @*@class = "btn btn-primary btn-sm"*@ })
+                }
+
+            </td>
+       
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.EventID }, new { @*@class = "btn btn-primary btn-sm"*@ })&nbsp;
+            </td>
+        </tr>
+    }
+
+</table>
+<br />
+<br />
+<br />
+@if (ViewBag.feed != null)
+{
+    <script type="text/javascript">
+        alert("@ViewBag.feed")
+    </script>
+}

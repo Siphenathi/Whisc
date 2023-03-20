@@ -1,0 +1,68 @@
+﻿
+@model IEnumerable<WHSIC.Data.Asset_Renter>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Treasure/_DashBoard.cshtml";
+}
+
+<h2>List of Renters</h2>
+<div class="well">
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayName("Full Name")
+            </th>
+            <th>
+                @Html.DisplayName("Contact")
+            </th>
+            <th>
+                @Html.DisplayName("Email")
+            </th>
+            <th>
+                @Html.DisplayName("Physical Address")
+            </th>
+            <th>
+                @Html.DisplayName("Contract")
+            </th>
+            <th>
+                @Html.DisplayName("Hire")
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Contact)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Physical_Address)
+                </td>
+                <td>
+                    @Html.ActionLink("View Contract", "Showfile", new { id = item.Renter_code }, new { target = "_blank" })
+                </td>
+                <td>
+                    @Html.ActionLink("Hire Asset", "Create", "AssetRental", new { id = item.Renter_code }, null)
+                </td>
+                <td>
+                    @Html.ActionLink("Change Contact", "ChangeContact", new { id = item.Renter_code })|
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Renter_code }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Renter_code })
+                </td>
+
+            </tr>
+        }
+
+    </table>
+</div>

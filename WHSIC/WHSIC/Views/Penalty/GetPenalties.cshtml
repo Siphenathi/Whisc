@@ -1,0 +1,71 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<WHSIC.Data.Penalty>
+@using WHSIC.Data
+@{
+    ViewBag.Title = "GetPenalties";
+    Layout = "~/Views/Treasure/_DashBoard.cshtml";
+    ApplicationDbContext db = new ApplicationDbContext();
+}
+
+<h2>All Penalties</h2>
+<div class="well">
+    <table class="table table-bordered table-hover table-striped">
+        <tr>
+            <th>
+                @Html.DisplayName("Renter")
+            </th>
+            <th>
+                @Html.DisplayName("Asset")
+            </th>
+            <th>
+                @Html.DisplayName("Return Date")
+            </th>
+            <th>
+                @Html.DisplayName("Amount Before")
+            </th>
+            <th>
+                @Html.DisplayName("Added Amount")
+            </th>
+            <th>
+                @Html.DisplayName("Total Amount")
+            </th>
+            @*<th>
+                @Html.DisplayName("Record Date")
+            </th>*@
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            Asset_Rentalz rental = db.Asset_Rentals.Find(item.Rental_ID);
+            decimal amt = item.AmountBefore + item.AddedAmount;
+            <tr>
+                <td>
+                    @rental.Asset_Renters.FullName
+                </td>
+                <td>
+                    @rental.Assets.AName
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReturnDate)
+                </td>
+                <td>
+                    @item.AmountBefore.ToString("R00.00")
+                </td>
+                <td>
+                    @item.AddedAmount.ToString("R00.00")
+                </td>
+                <th>
+                    @amt.ToString("R00.00")
+                </th>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.RecordDate)
+                </td>*@
+               
+            </tr>
+        }
+
+    </table>
+    <div class="text-center">
+        @Html.PagedListPager(Model, page => Url.Action("GetPenalties", new { page, pageSize = Model.PageSize }))
+    </div>
+</div>

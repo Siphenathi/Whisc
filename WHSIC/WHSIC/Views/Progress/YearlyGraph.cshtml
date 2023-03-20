@@ -1,0 +1,311 @@
+﻿@using WHSIC.Model;
+@using WHSIC.BusinessLogic;
+@{
+    ViewBag.Title = "LineGraph";
+    Layout = "~/Views/Secretary/_DashBoard.cshtml";
+
+    ProjectBusiness pb = new ProjectBusiness();
+    ProjectProgressBusiness ppb = new ProjectProgressBusiness();
+    ProjectViewModel proj = pb.GetAllProjects().Find(x => x.ProjectID == ViewBag.proj);
+
+    double m1 = 0, m2 = 0, m3 = 0, m4 = 0, m5 = 0, m6 = 0, m7 = 0, m8 = 0, m9 = 0, m10 = 0;
+    string Textm1 = "1st Year", Textm2 = "2nd Year", Textm3 = "3rd Year", Textm4 = "4th Year", Textm5 = "5th Year", Textm6 = "6th Year", Textm7 = "7th Year", Textm8 = "8th Year", Textm9 = "9th Year", Textm10 = "10th Year";
+
+    double max_duration = 0;
+    max_duration = proj.Duration;
+
+    double Estimatedm1 = (1 / max_duration) * 100;
+    double Estimatedm2 = Estimatedm1 * 2;
+    double Estimatedm3 = Estimatedm2 + Estimatedm1;
+    double Estimatedm4 = Estimatedm3 + Estimatedm1;
+    double Estimatedm5 = Estimatedm4 + Estimatedm1;
+    double Estimatedm6 = Estimatedm5 + Estimatedm1,
+    Estimatedm7 = Estimatedm6 + Estimatedm1, Estimatedm8 = Estimatedm7 + Estimatedm1, Estimatedm9 = Estimatedm8 + Estimatedm1,
+    Estimatedm10 = Estimatedm9 + Estimatedm1, Estimatedm11 = Estimatedm10 + Estimatedm1, Estimatedm12 = Estimatedm11 + Estimatedm1;
+
+    List<ProjectProgressViewModel> track = (from p in ppb.GetAllProjectProgresses() where p.ProjectID == proj.ProjectID select p).ToList();
+
+
+    for (int x = 0; x < track.Count(); x++)
+    {
+        int Feb_days = DateTime.DaysInMonth(track[x].Date.Year, 2);
+        if (x == 0)
+        {
+            m1 = (((1 / max_duration) / 12) * track[x].PeroidWorked) * 100;
+            Textm1 = track[x].Duration;
+        }
+        else if (x == 1)
+        {
+            m2 = m1 + (((1 / max_duration) / 12) * track[x].PeroidWorked) * 100;
+          
+        }
+        else if (x == 2)
+        {
+            m3 = m2 + (((1 / max_duration) / 12) * track[x].PeroidWorked) * 100;
+            
+        }
+        else if (x == 3)
+        {
+            m4 = m3 + (((1 / max_duration) / 12) * track[x].PeroidWorked) * 100;
+          
+        }
+
+        else if (x == 4)
+        {
+            m5 = m4 + (((1 / max_duration) / 12) * track[x].PeroidWorked) * 100;
+           
+        }
+        else if (x == 5)
+        {
+            m6 = m5 + (((1 / max_duration) / 12) * track[x].PeroidWorked) * 100;
+        
+        }
+        else if (x == 6)
+        {
+            m7 = m6 + (((1 / max_duration) / 12) * track[x].PeroidWorked) * 100;
+           
+        }
+        else if (x == 7)
+        {
+            m8 = m7 + (((1 / max_duration) / 12) * track[x].PeroidWorked) * 100;
+            
+        }
+        else if (x == 8)
+        {
+            m9 = m8 + (((1 / max_duration) / 12) * track[x].PeroidWorked) * 100;
+           
+        }
+        else if (x == 9)
+        {
+            m10 = m9 + (((1 / max_duration) / 12) * track[x].PeroidWorked) * 100;
+         
+        }
+    }
+
+    Textm2 = (Convert.ToInt32(Textm1) + 1).ToString();
+    Textm3 = (Convert.ToInt32(Textm2) + 1).ToString();
+    Textm4 = (Convert.ToInt32(Textm3) + 1).ToString();
+    Textm5 = (Convert.ToInt32(Textm4) + 1).ToString();
+    Textm6 = (Convert.ToInt32(Textm5) + 1).ToString();
+    Textm7 = (Convert.ToInt32(Textm6) + 1).ToString();
+    Textm8 = (Convert.ToInt32(Textm7) + 1).ToString();
+    Textm9 = (Convert.ToInt32(Textm8) + 1).ToString();
+    Textm10 = (Convert.ToInt32(Textm9) + 1).ToString();
+}
+<h2 class="text-center">Line Graph</h2>
+<div class="well">
+<div><a href="@Url.Action("GetAllProgress", new { projectID=ViewBag.proj })" class="fa fa-arrow-circle-o-left" style="font-size:30px;">Back</a></div>
+<div id="line_top_x" style="padding-left:10%"></div>
+</div>
+<br />
+<br />
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', { 'packages': ['line'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Years');
+        data.addColumn('number', 'Estimated Progress');
+        data.addColumn('number', 'Actual Progress');
+
+        if(@Convert.ToInt32(m1)!=0 &&  @Convert.ToInt32(m2)==0 && @Convert.ToInt32(m3)==0 &&  @Convert.ToInt32(m4)==0 && @Convert.ToInt32(m5)==0 && @Convert.ToInt32(m6)==0 && @Convert.ToInt32(m7)==0 && @Convert.ToInt32(m8)==0 && @Convert.ToInt32(m9)==0 &&  @Convert.ToInt32(m10)==0)
+        {
+            data.addRows([
+       ['@Textm1', @Convert.ToInt32(Estimatedm1), @Convert.ToInt32(m1)],
+       ['@Textm2', @Convert.ToInt32(Estimatedm2), null],
+       ['@Textm3', @Convert.ToInt32(Estimatedm3), null],
+       ['@Textm4', @Convert.ToInt32(Estimatedm4), null],
+       ['@Textm5', @Convert.ToInt32(Estimatedm5), null],
+       ['@Textm6', @Convert.ToInt32(Estimatedm6), null],
+       ['@Textm7', @Convert.ToInt32(Estimatedm7), null],
+       ['@Textm8', @Convert.ToInt32(Estimatedm8), null],
+       ['@Textm9', @Convert.ToInt32(Estimatedm9), null],
+       ['@Textm10', @Convert.ToInt32(Estimatedm10), null]
+
+            ]);
+        }
+        else if(@Convert.ToInt32(m1)!=0 &&  @Convert.ToInt32(m2)!=0 && @Convert.ToInt32(m3)==0 &&  @Convert.ToInt32(m4)==0 && @Convert.ToInt32(m5)==0 && @Convert.ToInt32(m6)==0 && @Convert.ToInt32(m7)==0 && @Convert.ToInt32(m8)==0 && @Convert.ToInt32(m9)==0 &&  @Convert.ToInt32(m10)==0 )
+        {
+            data.addRows([
+         ['@Textm1', @Convert.ToInt32(Estimatedm1), @Convert.ToInt32(m1)],
+         ['@Textm2', @Convert.ToInt32(Estimatedm2), @Convert.ToInt32(m2)],
+         ['@Textm3', @Convert.ToInt32(Estimatedm3), null],
+         ['@Textm4', @Convert.ToInt32(Estimatedm4), null],
+         ['@Textm5', @Convert.ToInt32(Estimatedm5), null],
+         ['@Textm6', @Convert.ToInt32(Estimatedm6), null],
+         ['@Textm7', @Convert.ToInt32(Estimatedm7), null],
+         ['@Textm8', @Convert.ToInt32(Estimatedm8), null],
+         ['@Textm9', @Convert.ToInt32(Estimatedm9), null],
+         ['@Textm10', @Convert.ToInt32(Estimatedm10), null]
+
+            ]);
+        }
+        else if(@Convert.ToInt32(m1)!=0 &&  @Convert.ToInt32(m2)!=0 && @Convert.ToInt32(m3)!=0 &&  @Convert.ToInt32(m4)==0 && @Convert.ToInt32(m5)==0 && @Convert.ToInt32(m6)==0 && @Convert.ToInt32(m7)==0 && @Convert.ToInt32(m8)==0 && @Convert.ToInt32(m9)==0 &&  @Convert.ToInt32(m10)==0)
+        {
+            data.addRows([
+         ['@Textm1', @Convert.ToInt32(Estimatedm1), @Convert.ToInt32(m1)],
+         ['@Textm2', @Convert.ToInt32(Estimatedm2), @Convert.ToInt32(m2)],
+         ['@Textm3', @Convert.ToInt32(Estimatedm3), @Convert.ToInt32(m3)],
+         ['@Textm4', @Convert.ToInt32(Estimatedm4), null],
+         ['@Textm5', @Convert.ToInt32(Estimatedm5), null],
+         ['@Textm6', @Convert.ToInt32(Estimatedm6), null],
+         ['@Textm7', @Convert.ToInt32(Estimatedm7), null],
+         ['@Textm8', @Convert.ToInt32(Estimatedm8), null],
+         ['@Textm9', @Convert.ToInt32(Estimatedm9), null],
+         ['@Textm10', @Convert.ToInt32(Estimatedm10), null]
+
+            ]);
+        }
+        else if(@Convert.ToInt32(m1)!=0 &&  @Convert.ToInt32(m2)!=0 && @Convert.ToInt32(m3)!=0 &&  @Convert.ToInt32(m4)!=0 && @Convert.ToInt32(m5)==0 && @Convert.ToInt32(m6)==0 && @Convert.ToInt32(m7)==0 && @Convert.ToInt32(m8)==0 && @Convert.ToInt32(m9)==0 &&  @Convert.ToInt32(m10)==0 )
+        {
+            data.addRows([
+         ['@Textm1', @Convert.ToInt32(Estimatedm1), @Convert.ToInt32(m1)],
+         ['@Textm2', @Convert.ToInt32(Estimatedm2), @Convert.ToInt32(m2)],
+         ['@Textm3', @Convert.ToInt32(Estimatedm3), @Convert.ToInt32(m3)],
+         ['@Textm4', @Convert.ToInt32(Estimatedm4), @Convert.ToInt32(m4)],
+         ['@Textm5', @Convert.ToInt32(Estimatedm5), null],
+         ['@Textm6', @Convert.ToInt32(Estimatedm6), null],
+         ['@Textm7', @Convert.ToInt32(Estimatedm7), null],
+         ['@Textm8', @Convert.ToInt32(Estimatedm8), null],
+         ['@Textm9', @Convert.ToInt32(Estimatedm9), null],
+         ['@Textm10',@Convert.ToInt32(Estimatedm10), null]
+
+            ]);
+        }
+
+        else if(@Convert.ToInt32(m1)!=0 &&  @Convert.ToInt32(m2)!=0 && @Convert.ToInt32(m3)!=0 &&  @Convert.ToInt32(m4)!=0 && @Convert.ToInt32(m5)!=0 && @Convert.ToInt32(m6)==0 && @Convert.ToInt32(m7)==0 && @Convert.ToInt32(m8)==0 && @Convert.ToInt32(m9)==0 &&  @Convert.ToInt32(m10)==0 )
+        {
+            data.addRows([
+         ['@Textm1', @Convert.ToInt32(Estimatedm1), @Convert.ToInt32(m1)],
+         ['@Textm2', @Convert.ToInt32(Estimatedm2), @Convert.ToInt32(m2)],
+         ['@Textm3', @Convert.ToInt32(Estimatedm3), @Convert.ToInt32(m3)],
+         ['@Textm4', @Convert.ToInt32(Estimatedm4), @Convert.ToInt32(m4)],
+         ['@Textm5', @Convert.ToInt32(Estimatedm5), @Convert.ToInt32(m5)],
+         ['@Textm6', @Convert.ToInt32(Estimatedm6), null],
+         ['@Textm7', @Convert.ToInt32(Estimatedm7), null],
+         ['@Textm8', @Convert.ToInt32(Estimatedm8), null],
+         ['@Textm9', @Convert.ToInt32(Estimatedm9), null],
+         ['@Textm10', @Convert.ToInt32(Estimatedm10), null]
+
+            ]);
+        }
+
+        else if(@Convert.ToInt32(m1)!=0 &&  @Convert.ToInt32(m2)!=0 && @Convert.ToInt32(m3)!=0 &&  @Convert.ToInt32(m4)!=0 && @Convert.ToInt32(m5)!=0 && @Convert.ToInt32(m6)!=0 && @Convert.ToInt32(m7)==0 && @Convert.ToInt32(m8)==0 && @Convert.ToInt32(m9)==0 &&  @Convert.ToInt32(m10)==0 )
+        {
+            data.addRows([
+         ['@Textm1', @Convert.ToInt32(Estimatedm1), @Convert.ToInt32(m1)],
+         ['@Textm2', @Convert.ToInt32(Estimatedm2), @Convert.ToInt32(m2)],
+         ['@Textm3', @Convert.ToInt32(Estimatedm3), @Convert.ToInt32(m3)],
+         ['@Textm4', @Convert.ToInt32(Estimatedm4), @Convert.ToInt32(m4)],
+         ['@Textm5', @Convert.ToInt32(Estimatedm5), @Convert.ToInt32(m5)],
+         ['@Textm6', @Convert.ToInt32(Estimatedm6), @Convert.ToInt32(m6)],
+         ['@Textm7', @Convert.ToInt32(Estimatedm7), null],
+         ['@Textm8', @Convert.ToInt32(Estimatedm8), null],
+         ['@Textm9', @Convert.ToInt32(Estimatedm9), null],
+         ['@Textm10', @Convert.ToInt32(Estimatedm10), null]
+
+            ]);
+        }
+
+        else if(@Convert.ToInt32(m1)!=0 &&  @Convert.ToInt32(m2)!=0 && @Convert.ToInt32(m3)!=0 &&  @Convert.ToInt32(m4)!=0 && @Convert.ToInt32(m5)!=0 && @Convert.ToInt32(m6)!=0 && @Convert.ToInt32(m7)!=0 && @Convert.ToInt32(m8)==0 && @Convert.ToInt32(m9)==0 &&  @Convert.ToInt32(m10)==0 )
+        {
+            data.addRows([
+         ['@Textm1', @Convert.ToInt32(Estimatedm1), @Convert.ToInt32(m1)],
+         ['@Textm2', @Convert.ToInt32(Estimatedm2), @Convert.ToInt32(m2)],
+         ['@Textm3', @Convert.ToInt32(Estimatedm3), @Convert.ToInt32(m3)],
+         ['@Textm4', @Convert.ToInt32(Estimatedm4), @Convert.ToInt32(m4)],
+         ['@Textm5', @Convert.ToInt32(Estimatedm5), @Convert.ToInt32(m5)],
+         ['@Textm6', @Convert.ToInt32(Estimatedm6), @Convert.ToInt32(m6)],
+         ['@Textm7', @Convert.ToInt32(Estimatedm7), @Convert.ToInt32(m7)],
+         ['@Textm8', @Convert.ToInt32(Estimatedm8), null],
+         ['@Textm9', @Convert.ToInt32(Estimatedm9), null],
+         ['@Textm10', @Convert.ToInt32(Estimatedm10), null]
+
+            ]);
+        }
+        else if(@Convert.ToInt32(m1)!=0 &&  @Convert.ToInt32(m2)!=0 && @Convert.ToInt32(m3)!=0 &&  @Convert.ToInt32(m4)!=0 && @Convert.ToInt32(m5)!=0 && @Convert.ToInt32(m6)!=0 && @Convert.ToInt32(m7)!=0 && @Convert.ToInt32(m8)!=0 && @Convert.ToInt32(m9)==0 &&  @Convert.ToInt32(m10)==0 )
+        {
+            data.addRows([
+         ['@Textm1', @Convert.ToInt32(Estimatedm1), @Convert.ToInt32(m1)],
+         ['@Textm2', @Convert.ToInt32(Estimatedm2), @Convert.ToInt32(m2)],
+         ['@Textm3', @Convert.ToInt32(Estimatedm3), @Convert.ToInt32(m3)],
+         ['@Textm4', @Convert.ToInt32(Estimatedm4), @Convert.ToInt32(m4)],
+         ['@Textm5', @Convert.ToInt32(Estimatedm5), @Convert.ToInt32(m5)],
+         ['@Textm6', @Convert.ToInt32(Estimatedm6), @Convert.ToInt32(m6)],
+         ['@Textm7', @Convert.ToInt32(Estimatedm7), @Convert.ToInt32(m7)],
+         ['@Textm8', @Convert.ToInt32(Estimatedm8), @Convert.ToInt32(m8)],
+         ['@Textm9', @Convert.ToInt32(Estimatedm9), null],
+         ['@Textm10', @Convert.ToInt32(Estimatedm10), null]
+
+            ]);
+        }
+        else if(@Convert.ToInt32(m1)!=0 &&  @Convert.ToInt32(m2)!=0 && @Convert.ToInt32(m3)!=0 &&  @Convert.ToInt32(m4)!=0 && @Convert.ToInt32(m5)!=0 && @Convert.ToInt32(m6)!=0 && @Convert.ToInt32(m7)!=0 && @Convert.ToInt32(m8)!=0 && @Convert.ToInt32(m9)!=0 &&  @Convert.ToInt32(m10)==0 )
+        {
+            data.addRows([
+         ['@Textm1', @Convert.ToInt32(Estimatedm1), @Convert.ToInt32(m1)],
+         ['@Textm2', @Convert.ToInt32(Estimatedm2), @Convert.ToInt32(m2)],
+         ['@Textm3', @Convert.ToInt32(Estimatedm3), @Convert.ToInt32(m3)],
+         ['@Textm4', @Convert.ToInt32(Estimatedm4), @Convert.ToInt32(m4)],
+         ['@Textm5', @Convert.ToInt32(Estimatedm5), @Convert.ToInt32(m5)],
+         ['@Textm6', @Convert.ToInt32(Estimatedm6), @Convert.ToInt32(m6)],
+         ['@Textm7', @Convert.ToInt32(Estimatedm7), @Convert.ToInt32(m7)],
+         ['@Textm8', @Convert.ToInt32(Estimatedm8), @Convert.ToInt32(m8)],
+         ['@Textm9', @Convert.ToInt32(Estimatedm9), @Convert.ToInt32(m9)],
+         ['@Textm10',@Convert.ToInt32(Estimatedm10),  null]
+
+            ]);
+        }
+        else if(@Convert.ToInt32(m1)!=0 &&  @Convert.ToInt32(m2)!=0 && @Convert.ToInt32(m3)!=0 &&  @Convert.ToInt32(m4)!=0 && @Convert.ToInt32(m5)!=0 && @Convert.ToInt32(m6)!=0 && @Convert.ToInt32(m7)!=0 && @Convert.ToInt32(m8)!=0 && @Convert.ToInt32(m9)!=0 &&  @Convert.ToInt32(m10)!=0 )
+        {
+            data.addRows([
+         ['@Textm1', @Convert.ToInt32(Estimatedm1), @Convert.ToInt32(m1)],
+         ['@Textm2', @Convert.ToInt32(Estimatedm2), @Convert.ToInt32(m2)],
+         ['@Textm3', @Convert.ToInt32(Estimatedm3), @Convert.ToInt32(m3)],
+         ['@Textm4', @Convert.ToInt32(Estimatedm4), @Convert.ToInt32(m4)],
+         ['@Textm5', @Convert.ToInt32(Estimatedm5), @Convert.ToInt32(m5)],
+         ['@Textm6', @Convert.ToInt32(Estimatedm6), @Convert.ToInt32(m6)],
+         ['@Textm7', @Convert.ToInt32(Estimatedm7), @Convert.ToInt32(m7)],
+         ['@Textm8', @Convert.ToInt32(Estimatedm8), @Convert.ToInt32(m8)],
+         ['@Textm9', @Convert.ToInt32(Estimatedm9), @Convert.ToInt32(m9)],
+         ['@Textm10', @Convert.ToInt32(Estimatedm10), @Convert.ToInt32(m10)]
+
+            ]);
+        }
+        else
+        {
+            data.addRows([
+         ['@Textm1', @Convert.ToInt32(Estimatedm1), null],
+         ['@Textm2', @Convert.ToInt32(Estimatedm2), null],
+         ['@Textm3', @Convert.ToInt32(Estimatedm3), null],
+         ['@Textm4', @Convert.ToInt32(Estimatedm4), null],
+         ['@Textm5', @Convert.ToInt32(Estimatedm5), null],
+         ['@Textm6', @Convert.ToInt32(Estimatedm6), null],
+         ['@Textm7', @Convert.ToInt32(Estimatedm7), null],
+         ['@Textm8', @Convert.ToInt32(Estimatedm8), null],
+         ['@Textm9', @Convert.ToInt32(Estimatedm9), null],
+         ['@Textm10', @Convert.ToInt32(Estimatedm10), null]
+            ]);
+        }
+
+            var options = {
+            chart: {
+                title: 'Project Progress Report',
+                subtitle: 'Per Year'
+            },
+            width: 1100,
+            height: 500,
+            axes: {
+                x: {
+                    0: { side: 'top' }
+                }
+            }
+        };
+
+        var chart = new google.charts.Line(document.getElementById('line_top_x'));
+
+        chart.draw(data, options);
+    }
+</script>

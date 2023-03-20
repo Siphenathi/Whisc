@@ -1,0 +1,33 @@
+﻿@model IEnumerable<WHSIC.Model.PaidExpenseReceiptViewModel>
+@{
+    ViewBag.Title = "ExpenseReceipt";
+    Layout = "~/Views/Treasure/_DashBoard.cshtml";
+}
+
+<div class="well">
+    <h2 class="text-center">Expense Receipt</h2>
+    @if (ViewBag.count == 0)
+    {
+        <h3 style="color:#052963">The are no Receipts uploaded for this expense</h3>
+    }
+    <table class="table">
+        <tr>
+            <td>Date of upload</td>
+            <td>Receipt</td>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Date.ToShortDateString()
+                </td>
+                <td>
+                   click @Html.ActionLink("here","Showfile","Expense_Paid", new { id = item.Id }, new { target = "_blank" }) to view receipt
+                </td>
+            </tr>
+        }
+    </table>
+    <div>
+        @Html.ActionLink("Back to list","Index")
+    </div>
+</div>

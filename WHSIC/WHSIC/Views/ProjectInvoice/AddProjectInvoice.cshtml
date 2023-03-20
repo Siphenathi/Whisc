@@ -1,0 +1,96 @@
+﻿@model WHSIC.Model.ProjectInvoiceViewModel
+
+@{
+    ViewBag.Title = "AddProjectInvoice";
+    Layout = "~/Views/Secretary/_DashBoard.cshtml";
+}
+
+<h2>Add Project Invoice</h2>
+
+
+@using (Html.BeginForm("AddProjectInvoice", "ProjectInvoice", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" })) 
+{
+                @Html.AntiForgeryToken()
+
+     <div class="row text-center" style="align-content:center;padding-left:20%">
+        <div class="col-md-2" style="border: solid;">
+             <a href="#"><i  class="fa fa-check" style="font-size:127px;color: #2ECC71">
+
+             </i></a>
+            </div>
+            <div class="col-md-2" style="border:solid;">
+                <a href="#"><i class="fa fa-check" style="font-size:127px;color: #2ECC71">
+
+                </i></a>
+            </div>
+           <div class="col-md-2" style="border:5px solid;border-color:#00C6D7">
+            <a href="#">
+                <i class="fa fa-paperclip" style="font-size:127px;color: #052963">
+
+                </i>
+             </a>
+          </div>
+        <div class="col-md-2" style="border:solid;">
+            <a href="#">
+                <i class="fa fa-thumbs-up" style="font-size:127px;color: #052963">
+
+                </i>
+            </a>
+        </div>
+    </div>
+
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div>
+            <input type="text" name="ConID" value="@ViewBag.ConID" hidden/>
+            <input type="text" name="ProjID" value="@ViewBag.ProjID" hidden />
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <table>
+                <tr>
+                    <td>
+                        <label>Browse Invoice</label>
+                    </td>
+
+                    <td>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="fileUpload btn btn-primary" style="background-color: #052963; color: #00C6D7">
+                            <input type="file" required="" onchange="readURL(this);" name="file" accept="application/doc, application/pdf" class="upload" />
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @Html.ActionLink("Finish", "Finish", "Project", new { projectID=ViewBag.ProjID }, new { @class = "btn btn-primary fa fa-check-square-o" })
+            </div>
+        </div>
+    </div>
+}
+@if(ViewBag.feed != null)
+{
+    <script type="text/javascript">
+            alert("@ViewBag.feed")
+    </script>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

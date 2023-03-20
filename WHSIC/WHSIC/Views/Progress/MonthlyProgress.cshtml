@@ -1,0 +1,104 @@
+﻿@model WHSIC.Model.ProjectProgressViewModel
+@{
+    ViewBag.Title = "Add Progress";
+    Layout = "~/Views/Secretary/_DashBoard.cshtml";
+}
+@using (Html.BeginForm("MonthlyProgress", "Progress", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Progress</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        <div class="form-group">
+            @Html.LabelFor(model => model.Duration, new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.DropDownList("Duration", new List<SelectListItem>
+                  { new SelectListItem { Text = "January", Value = "January" },
+                  new SelectListItem{ Text = "February", Value = "February" },
+                  new SelectListItem{ Text = "March", Value = "March" },
+                  new SelectListItem{ Text = "April", Value = "April" },
+                  new SelectListItem{ Text = "May", Value = "May" },
+                  new SelectListItem{ Text = "June", Value = "June" },
+                  new SelectListItem{ Text = "July", Value = "July" },
+                  new SelectListItem{ Text = "August", Value = "August" },
+                  new SelectListItem{ Text = "September", Value = "September" },
+                  new SelectListItem{ Text = "October", Value = "October" },
+                  new SelectListItem{ Text = "November", Value = "November" },
+                  new SelectListItem{ Text = "December", Value = "December" }
+                  }
+                   , "Select Month", new { @style = "width:252px;height:38px;" }
+                  )
+                @Html.ValidationMessageFor(model => model.Duration, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Days Worked", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.DropDownList("PeroidWorked", new List<SelectListItem>
+                  {
+                  new SelectListItem{ Text = "1 Day",  Value = "1" },
+                  new SelectListItem{ Text = "2 Days", Value = "2" },
+                  new SelectListItem{ Text = "3 Days", Value = "3" },
+                  new SelectListItem{ Text = "4 Days", Value = "4" },
+                  new SelectListItem{ Text = "5 Days", Value = "5" },
+                  new SelectListItem{ Text = "6 Days", Value = "6" },
+                  new SelectListItem{ Text = "7 Days", Value = "7" },
+                  new SelectListItem{ Text = "8 Days", Value = "8" },
+                  new SelectListItem{ Text = "9 Days", Value = "9" },
+                  new SelectListItem{ Text = "10 Days",Value = "10"},
+                  new SelectListItem{ Text = "11 Days",Value = "11"},
+                  new SelectListItem{ Text = "12 Days",Value = "12"},
+                  new SelectListItem{ Text = "13 Days",Value = "13"},
+                  new SelectListItem{ Text = "14 Days", Value = "14"},
+                  new SelectListItem{ Text = "15 Days", Value = "15"},
+                  new SelectListItem{ Text = "16 Days", Value = "16"},
+                  new SelectListItem{ Text = "17 Days", Value = "17"},
+                  new SelectListItem{ Text = "18 Days", Value = "18"},
+                  new SelectListItem{ Text = "19 Days", Value = "19"},
+                  new SelectListItem{ Text = "20 Days", Value = "20"},
+                  new SelectListItem{ Text = "21 Days", Value = "21"},
+                  new SelectListItem{ Text = "22 Days",Value = "22" },
+                  new SelectListItem{ Text = "23 Days",Value = "23" },
+                  new SelectListItem{ Text = "24 Days",Value = "24" },
+                  new SelectListItem{ Text = "25 Days", Value = "25"},
+                  new SelectListItem{ Text = "26 Days", Value = "26"},
+                  new SelectListItem{ Text = "27 Days", Value = "27"},
+                  new SelectListItem{ Text = "28 Days", Value = "28"},
+                  new SelectListItem{ Text = "29 Days", Value = "29"},
+                  new SelectListItem{ Text = "30 Days", Value = "30"},
+                  new SelectListItem{ Text = "31 Days", Value = "31"},
+
+                  }
+                   , "Select Days Worked ", new { @style = "width:252px;height:38px;" }
+                  )
+                @Html.ValidationMessageFor(model => model.PeroidWorked, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+        <div>
+            <input type="text" value="@ViewBag.projIDM" name="passIDM" hidden />
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Add" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back", "GetAllProgress", "Progress", new { projectID= ViewBag.projIDM }, new { @class = "btn btn-primary 	fa fa-arrow-circle-left" })
+</div>
+@if (ViewBag.feed != null)
+{
+    <script type="text/javascript">
+        alert("@ViewBag.feed")
+    </script>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

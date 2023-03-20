@@ -1,0 +1,139 @@
+﻿@model WHSIC.Model.ProjectViewModel
+@{
+    ViewBag.Title = "AddProject";
+    Layout = "~/Views/Secretary/_DashBoard.cshtml";
+}
+<h2>Add Project</h2>
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    <div class="row text-center" style="align-content:center;padding-left:20%">
+        <div class="col-md-2" style="border:5px solid;border-color:#00C6D7">
+             <a href="#"><i  class="fa fa-tasks" style="font-size:127px;color: #052963">
+             
+             </i></a>
+            </div>
+            <div class="col-md-2" style="border:solid;">
+                <a href="#"><i class="fa fa-users" style="font-size:127px;color: #052963">
+
+                </i></a>
+            </div>
+           <div class="col-md-2" style="border:solid;">
+            <a href="#">
+                <i class="fa fa-paperclip" style="font-size:127px;color: #052963">
+
+                </i>
+             </a>
+          </div>
+        <div class="col-md-2" style="border:solid;">
+            <a href="#">
+                <i class="fa fa-thumbs-up" style="font-size:127px;color: #052963">
+
+                </i>
+            </a>
+        </div>
+    </div>
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProjectName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.ProjectName, new { htmlAttributes = new { @class = "form-control",placeholder="Enter Project Name" } })
+                @Html.ValidationMessageFor(model => model.ProjectName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Project_Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Project_Description, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Project Description" } })
+                @Html.ValidationMessageFor(model => model.Project_Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PhysicalAddress, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.PhysicalAddress, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Project PhysicalAddress" } })
+                @Html.ValidationMessageFor(model => model.PhysicalAddress, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Project_Manager, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Project_Manager, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Project Manager" } })
+                @Html.ValidationMessageFor(model => model.Project_Manager, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.Contact, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Contact, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Project Manager Contact" } })
+                @Html.ValidationMessageFor(model => model.Contact, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Project Name" } })
+                @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DurationFormat, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.DropDownList("DurationFormat", new List<SelectListItem>
+                        { 
+                          new SelectListItem{ Text = "Week(s)", Value = "Week(s)" },
+                          new SelectListItem{ Text = "Month(s)", Value = "Month(s)" },
+                          new SelectListItem{ Text = "Year(s)", Value = "Year(s)" }
+                        }
+                         , "Select Period", new { @style = "width:262px;height:38px;" }
+                      )
+                @Html.ValidationMessageFor(model => model.DurationFormat,"",new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Duration, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Project Name" } })
+                @Html.ValidationMessageFor(model => model.Duration, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Next" class="btn btn-primary" />
+                  @**@
+            </div>
+            <div >
+                @Html.ActionLink("Back to List", "GetAllProject")
+            </div>
+        </div>
+     <br />
+     <br />
+    </div>
+}
+@if(ViewBag.feed!=null)
+{
+    <script>
+        alert("@ViewBag.feed")
+    </script>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
